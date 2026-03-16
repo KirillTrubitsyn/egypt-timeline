@@ -121,9 +121,16 @@
     font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
     font-size: 1.6rem;
     color: var(--gold);
-    opacity: 0.5;
+    opacity: 0;
     letter-spacing: 0.8rem;
     margin-bottom: 2rem;
+    --target-opacity: 0.5;
+    animation: heroFadeIn 1.2s ease-out 1s forwards;
+  }
+
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: var(--target-opacity, 1); transform: translateY(0); }
   }
 
   .hero h1 {
@@ -134,6 +141,8 @@
     text-shadow: 0 2px 30px rgba(201,168,76,0.4);
     margin-bottom: 0.5rem;
     letter-spacing: 0.05em;
+    opacity: 0;
+    animation: heroFadeIn 1.2s ease-out 1.3s forwards;
   }
 
   .hero h2 {
@@ -141,8 +150,10 @@
     font-size: clamp(1rem, 2.5vw, 1.6rem);
     font-weight: 400;
     color: var(--sand);
-    opacity: 0.85;
     margin-bottom: 1rem;
+    opacity: 0;
+    animation: heroFadeIn 1.2s ease-out 1.6s forwards;
+    --target-opacity: 0.85;
   }
 
   .hero-subtitle {
@@ -150,6 +161,8 @@
     color: var(--sand-dark);
     max-width: 600px;
     line-height: 1.8;
+    opacity: 0;
+    animation: heroFadeIn 1.2s ease-out 1.9s forwards;
   }
 
   .hero-dates {
@@ -157,6 +170,8 @@
     align-items: center;
     gap: 1.5rem;
     margin-top: 2.5rem;
+    opacity: 0;
+    animation: heroFadeIn 1.2s ease-out 2.2s forwards;
   }
 
   .hero-date {
@@ -1249,51 +1264,6 @@
     align-items: center;
     text-align: center;
   }
-  .hero-content .hero-hieroglyphs {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 1.2s ease-out 0s, transform 1.2s ease-out 0s;
-  }
-  .hero-content h1 {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 1.2s ease-out 0.3s, transform 1.2s ease-out 0.3s;
-  }
-  .hero-content h2 {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 1.2s ease-out 0.6s, transform 1.2s ease-out 0.6s;
-  }
-  .hero-content .hero-subtitle {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 1.2s ease-out 0.9s, transform 1.2s ease-out 0.9s;
-  }
-  .hero-content .hero-dates {
-    opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 1.2s ease-out 1.2s, transform 1.2s ease-out 1.2s;
-  }
-  .hero-content.video-ended .hero-hieroglyphs {
-    opacity: 0.5;
-    transform: translateY(0);
-  }
-  .hero-content.video-ended h1 {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .hero-content.video-ended h2 {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .hero-content.video-ended .hero-subtitle {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .hero-content.video-ended .hero-dates {
-    opacity: 1;
-    transform: translateY(0);
-  }
 
   /* Finale video section */
   .finale-video-section {
@@ -1357,7 +1327,7 @@
 </head>
 <body>
 <!-- ===== HERO ===== -->
-<section class="hero"><div class="hero-video-wrap"><video id="hero-video" muted="" playsinline="" poster="images/hero.jpg" preload="auto"><source src="videos/hero.mp4" type="video/mp4"/></video><div class="video-overlay" id="hero-overlay"></div></div><div class="hero-content wait-for-video"><div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div><h1>Древний Египет</h1><h2>Полный интерактивный таймлайн цивилизации</h2><p class="hero-subtitle">
+<section class="hero"><div class="hero-video-wrap"><video id="hero-video" muted="" playsinline="" poster="images/hero.jpg" preload="auto"><source src="videos/hero.mp4" type="video/mp4"/></video><div class="video-overlay" id="hero-overlay"></div></div><div class="hero-content"><div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div><h1>Древний Египет</h1><h2>Полный интерактивный таймлайн цивилизации</h2><p class="hero-subtitle">
     От первых охотников в зеленой Сахаре до завоевания Александром Македонским.
     Более 10 000 лет истории одной из величайших цивилизаций человечества.
   </p><div class="hero-dates">
@@ -2418,31 +2388,19 @@
     });
   }
 
-  // Hero video: autoplay on load, reveal text when ended
+  // Hero video: autoplay as background, text appears independently via CSS
   (function() {
     const heroVideo = document.getElementById('hero-video');
-    const heroContent = document.querySelector('.hero-content');
     const heroOverlay = document.getElementById('hero-overlay');
 
-    if (!heroVideo || !heroContent) return;
+    if (!heroVideo) return;
 
-    let heroEnded = false;
-
-    const showOverlay = () => {
+    // Show overlay gradient after a delay
+    setTimeout(() => {
       if (heroOverlay) heroOverlay.classList.add('show');
-    };
+    }, 3000);
 
-    const revealText = () => {
-      if (heroEnded) return;
-      heroEnded = true;
-      heroContent.classList.add('video-ended');
-      showOverlay();
-    };
-
-    // Safety: if nothing happens within 20s, show text anyway
-    const safetyTimer = setTimeout(revealText, 20000);
-
-    // Auto-unmute on first user interaction (scroll/touch/click)
+    // Auto-unmute on first user interaction
     const unmuteOnInteraction = () => {
       if (!heroVideo.muted) return;
       heroVideo.muted = false;
@@ -2451,34 +2409,18 @@
       );
     };
 
-    const listenForUnmute = () => {
+    // Start muted for reliable autoplay, unmute on first gesture
+    heroVideo.muted = true;
+    heroVideo.play().then(() => {
       ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
-        document.addEventListener(evt, unmuteOnInteraction, { capture: true, once: false, passive: true })
+        document.addEventListener(evt, unmuteOnInteraction, { capture: true, passive: true })
       );
-    };
-
-    // Start muted (required for reliable autoplay), unmute on first user gesture
-    const playHero = () => {
-      heroVideo.muted = true;
-      heroVideo.play().then(() => {
-        setTimeout(showOverlay, 5000);
-        listenForUnmute();
-      }).catch(() => {
-        // Autoplay completely blocked — show text immediately
-        revealText();
-      });
-    };
-
-    heroVideo.addEventListener('ended', () => { clearTimeout(safetyTimer); revealText(); });
-    heroVideo.addEventListener('error', () => { clearTimeout(safetyTimer); revealText(); });
-    // Also catch <source> errors
-    const source = heroVideo.querySelector('source');
-    if (source) source.addEventListener('error', () => { clearTimeout(safetyTimer); revealText(); });
+    }).catch(() => {
+      // Autoplay blocked — poster image will show, text still appears via CSS
+    });
 
     // Smooth audio fade-out before video ends
     setupAudioFadeOut(heroVideo, 2.5);
-
-    playHero();
   })();
   
   // Finale video: play when scrolled into view, reveal text when ended
