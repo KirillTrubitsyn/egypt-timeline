@@ -1249,38 +1249,50 @@
     align-items: center;
     text-align: center;
   }
-  .hero-content .hero-hieroglyphs,
-  .hero-content h1,
-  .hero-content h2,
-  .hero-content .hero-subtitle,
+  .hero-content .hero-hieroglyphs {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1.2s ease-out 0s, transform 1.2s ease-out 0s;
+  }
+  .hero-content h1 {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1.2s ease-out 0.3s, transform 1.2s ease-out 0.3s;
+  }
+  .hero-content h2 {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1.2s ease-out 0.6s, transform 1.2s ease-out 0.6s;
+  }
+  .hero-content .hero-subtitle {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 1.2s ease-out 0.9s, transform 1.2s ease-out 0.9s;
+  }
   .hero-content .hero-dates {
     opacity: 0;
     transform: translateY(25px);
+    transition: opacity 1.2s ease-out 1.2s, transform 1.2s ease-out 1.2s;
   }
   .hero-content.video-ended .hero-hieroglyphs {
     opacity: 0.5;
     transform: translateY(0);
-    transition: opacity 1.2s ease-out 0s, transform 1.2s ease-out 0s;
   }
   .hero-content.video-ended h1 {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 1.2s ease-out 0.3s, transform 1.2s ease-out 0.3s;
   }
   .hero-content.video-ended h2 {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 1.2s ease-out 0.6s, transform 1.2s ease-out 0.6s;
   }
   .hero-content.video-ended .hero-subtitle {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 1.2s ease-out 0.9s, transform 1.2s ease-out 0.9s;
   }
   .hero-content.video-ended .hero-dates {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 1.2s ease-out 1.2s, transform 1.2s ease-out 1.2s;
   }
 
   /* Finale video section */
@@ -2423,9 +2435,6 @@
     const revealText = () => {
       if (heroEnded) return;
       heroEnded = true;
-      // Remove wait class, force a reflow, then add video-ended for transitions
-      heroContent.classList.remove('wait-for-video');
-      void heroContent.offsetHeight; // force reflow
       heroContent.classList.add('video-ended');
       showOverlay();
     };
