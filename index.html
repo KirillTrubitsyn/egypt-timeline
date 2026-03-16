@@ -124,7 +124,6 @@
     opacity: 0.5;
     letter-spacing: 0.8rem;
     margin-bottom: 2rem;
-    animation: fadeInDown 1.5s ease-out;
   }
 
   .hero h1 {
@@ -134,7 +133,6 @@
     color: var(--gold-light);
     text-shadow: 0 2px 30px rgba(201,168,76,0.4);
     margin-bottom: 0.5rem;
-    animation: fadeInUp 1.2s ease-out;
     letter-spacing: 0.05em;
   }
 
@@ -145,14 +143,12 @@
     color: var(--sand);
     opacity: 0.85;
     margin-bottom: 1rem;
-    animation: fadeInUp 1.4s ease-out;
   }
 
   .hero-subtitle {
     font-size: 0.95rem;
     color: var(--sand-dark);
     max-width: 600px;
-    animation: fadeInUp 1.6s ease-out;
     line-height: 1.8;
   }
 
@@ -1261,7 +1257,6 @@
   .hero-content.wait-for-video .hero-dates {
     opacity: 0;
     transform: translateY(25px);
-    animation: none !important;
   }
   .hero-content.video-ended .hero-hieroglyphs {
     opacity: 0.5;
@@ -1313,7 +1308,7 @@
     justify-content: center;
     text-align: center;
     padding: 2rem;
-    background: linear-gradient(180deg, rgba(10,22,40,0.3) 0%, rgba(10,22,40,0.75) 50%, rgba(10,22,40,0.85) 100%);
+    background: transparent;
     z-index: 1;
   }
   .finale-overlay .img-caption,
@@ -1346,6 +1341,7 @@
   .hero .scroll-indicator {
     z-index: 2;
   }
+
 </style>
 </head>
 <body>
@@ -2385,53 +2381,59 @@
     const heroVideo = document.getElementById('hero-video');
     const heroContent = document.querySelector('.hero-content');
     const heroOverlay = document.getElementById('hero-overlay');
-    
+
     if (!heroVideo || !heroContent) return;
-    
-    // Try to play video with sound; fall back to muted autoplay
+
+    let heroEnded = false;
+
+    const showOverlay = () => {
+      if (heroOverlay) heroOverlay.classList.add('show');
+    };
+
+    const revealText = () => {
+      if (heroEnded) return;
+      heroEnded = true;
+      heroContent.classList.remove('wait-for-video');
+      heroContent.classList.add('video-ended');
+      showOverlay();
+    };
+
+    // Auto-unmute on first user interaction (scroll/touch/click)
+    const unmuteOnInteraction = () => {
+      if (!heroVideo.muted) return;
+      heroVideo.muted = false;
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+        document.removeEventListener(evt, unmuteOnInteraction, true)
+      );
+    };
+
+    const listenForUnmute = () => {
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+        document.addEventListener(evt, unmuteOnInteraction, { capture: true, once: false, passive: true })
+      );
+    };
+
+    // Try to play with sound; fall back to muted + auto-unmute on interaction
     const playHero = () => {
       heroVideo.play().then(() => {
-        // Video is playing with sound - show overlay partway through
-        setTimeout(() => {
-          if (heroOverlay) heroOverlay.classList.add('show');
-        }, 5000);
+        // Playing with sound — great
+        setTimeout(showOverlay, 5000);
       }).catch(() => {
-        // Autoplay with sound blocked — try muted, unmute on first interaction
+        // Autoplay with sound blocked — start muted, unmute on first gesture
         heroVideo.muted = true;
         heroVideo.play().then(() => {
-          setTimeout(() => {
-            if (heroOverlay) heroOverlay.classList.add('show');
-          }, 5000);
-          const unmute = () => {
-            heroVideo.muted = false;
-            document.removeEventListener('click', unmute);
-            document.removeEventListener('touchstart', unmute);
-          };
-          document.addEventListener('click', unmute, { once: true });
-          document.addEventListener('touchstart', unmute, { once: true });
+          setTimeout(showOverlay, 5000);
+          listenForUnmute();
         }).catch(() => {
-          // Autoplay completely blocked — show text immediately
-          heroContent.classList.remove('wait-for-video');
-          heroContent.classList.add('video-ended');
-          if (heroOverlay) heroOverlay.classList.add('show');
+          // Autoplay completely blocked
+          revealText();
         });
       });
     };
-    
-    heroVideo.addEventListener('ended', () => {
-      // Video finished — reveal text with staggered fade-in
-      heroContent.classList.remove('wait-for-video');
-      heroContent.classList.add('video-ended');
-      if (heroOverlay) heroOverlay.classList.add('show');
-    });
-    
-    // Also handle if video can't load
-    heroVideo.addEventListener('error', () => {
-      heroContent.classList.remove('wait-for-video');
-      heroContent.classList.add('video-ended');
-    });
-    
-    // Start playing
+
+    heroVideo.addEventListener('ended', revealText);
+    heroVideo.addEventListener('error', revealText);
+
     playHero();
   })();
   
