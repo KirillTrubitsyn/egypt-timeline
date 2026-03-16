@@ -157,7 +157,6 @@
     align-items: center;
     gap: 1.5rem;
     margin-top: 2.5rem;
-    animation: fadeInUp 1.8s ease-out;
   }
 
   .hero-date {
@@ -1250,11 +1249,11 @@
     align-items: center;
     text-align: center;
   }
-  .hero-content.wait-for-video .hero-hieroglyphs,
-  .hero-content.wait-for-video h1,
-  .hero-content.wait-for-video h2,
-  .hero-content.wait-for-video .hero-subtitle,
-  .hero-content.wait-for-video .hero-dates {
+  .hero-content .hero-hieroglyphs,
+  .hero-content h1,
+  .hero-content h2,
+  .hero-content .hero-subtitle,
+  .hero-content .hero-dates {
     opacity: 0;
     transform: translateY(25px);
   }
@@ -2425,8 +2424,14 @@
       if (heroEnded) return;
       heroEnded = true;
       heroContent.classList.remove('wait-for-video');
-      heroContent.classList.add('video-ended');
-      showOverlay();
+      // Force browser to paint the intermediate state (opacity:0 from base styles
+      // removed), then apply video-ended with transitions in the next frame
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          heroContent.classList.add('video-ended');
+          showOverlay();
+        });
+      });
     };
 
     // Auto-unmute on first user interaction (scroll/touch/click)
