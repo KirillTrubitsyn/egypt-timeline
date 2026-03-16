@@ -2375,7 +2375,38 @@
 
 
   // ===== VIDEO BACKGROUND LOGIC =====
-  
+
+  // Audio fade-out helper: smoothly reduces volume before video ends
+  function setupAudioFadeOut(video, fadeDuration) {
+    fadeDuration = fadeDuration || 2.5; // seconds
+    let fadeInterval = null;
+
+    video.addEventListener('timeupdate', function() {
+      const timeLeft = video.duration - video.currentTime;
+      if (timeLeft <= fadeDuration && timeLeft > 0 && !fadeInterval) {
+        const startVolume = video.volume;
+        const steps = 30;
+        const stepTime = (fadeDuration * 1000) / steps;
+        let step = 0;
+        fadeInterval = setInterval(function() {
+          step++;
+          const progress = step / steps;
+          video.volume = Math.max(0, startVolume * (1 - progress));
+          if (step >= steps) {
+            clearInterval(fadeInterval);
+            video.volume = 0;
+          }
+        }, stepTime);
+      }
+    });
+
+    // Reset volume when video ends (in case it replays)
+    video.addEventListener('ended', function() {
+      if (fadeInterval) { clearInterval(fadeInterval); fadeInterval = null; }
+      video.volume = 1;
+    });
+  }
+
   // Hero video: autoplay on load, reveal text when ended
   (function() {
     const heroVideo = document.getElementById('hero-video');
@@ -2434,6 +2465,9 @@
     heroVideo.addEventListener('ended', revealText);
     heroVideo.addEventListener('error', revealText);
 
+    // Smooth audio fade-out before video ends
+    setupAudioFadeOut(heroVideo, 2.5);
+
     playHero();
   })();
   
@@ -2469,6 +2503,9 @@
       });
     }, { threshold: 0.5 });
     
+    // Smooth audio fade-out before video ends
+    setupAudioFadeOut(finaleVideo, 2.5);
+
     finaleVideo.addEventListener('ended', () => {
       finaleOverlay.classList.add('video-ended');
     });
