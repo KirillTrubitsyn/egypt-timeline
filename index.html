@@ -1342,35 +1342,11 @@
     z-index: 2;
   }
 
-  /* Sound toggle button */
-  .sound-btn {
-    position: absolute;
-    bottom: 5rem;
-    right: 1.5rem;
-    z-index: 10;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid rgba(201,168,76,0.5);
-    background: rgba(10,22,40,0.6);
-    backdrop-filter: blur(8px);
-    color: var(--gold);
-    font-size: 1.3rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .sound-btn:hover {
-    background: rgba(10,22,40,0.8);
-    border-color: var(--gold);
-  }
 </style>
 </head>
 <body>
 <!-- ===== HERO ===== -->
-<section class="hero"><div class="hero-video-wrap"><video id="hero-video" playsinline="" poster="images/hero.jpg" preload="auto"><source src="videos/hero.mp4" type="video/mp4"/></video><div class="video-overlay" id="hero-overlay"></div></div><button class="sound-btn" id="sound-btn" aria-label="Enable sound" style="display:none;">🔇</button><div class="hero-content wait-for-video"><div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div><h1>Древний Египет</h1><h2>Полный интерактивный таймлайн цивилизации</h2><p class="hero-subtitle">
+<section class="hero"><div class="hero-video-wrap"><video id="hero-video" playsinline="" poster="images/hero.jpg" preload="auto"><source src="videos/hero.mp4" type="video/mp4"/></video><div class="video-overlay" id="hero-overlay"></div></div><div class="hero-content wait-for-video"><div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div><h1>Древний Египет</h1><h2>Полный интерактивный таймлайн цивилизации</h2><p class="hero-subtitle">
     От первых охотников в зеленой Сахаре до завоевания Александром Македонским.
     Более 10 000 лет истории одной из величайших цивилизаций человечества.
   </p><div class="hero-dates">
@@ -2405,7 +2381,6 @@
     const heroVideo = document.getElementById('hero-video');
     const heroContent = document.querySelector('.hero-content');
     const heroOverlay = document.getElementById('hero-overlay');
-    const soundBtn = document.getElementById('sound-btn');
 
     if (!heroVideo || !heroContent) return;
 
@@ -2421,36 +2396,34 @@
       heroContent.classList.remove('wait-for-video');
       heroContent.classList.add('video-ended');
       showOverlay();
-      if (soundBtn) soundBtn.style.display = 'none';
     };
 
-    // Sound button: unmute + replay from start
-    if (soundBtn) {
-      soundBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        heroVideo.muted = false;
-        heroVideo.currentTime = 0;
-        heroVideo.play();
-        soundBtn.textContent = '🔊';
-        setTimeout(() => { soundBtn.style.display = 'none'; }, 1500);
-        // Reset ended state so text reveals again after replay
-        heroEnded = false;
-        heroContent.classList.remove('video-ended');
-        heroContent.classList.add('wait-for-video');
-      });
-    }
+    // Auto-unmute on first user interaction (scroll/touch/click)
+    const unmuteOnInteraction = () => {
+      if (!heroVideo.muted) return;
+      heroVideo.muted = false;
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+        document.removeEventListener(evt, unmuteOnInteraction, true)
+      );
+    };
 
-    // Try to play with sound; fall back to muted + show button
+    const listenForUnmute = () => {
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+        document.addEventListener(evt, unmuteOnInteraction, { capture: true, once: false, passive: true })
+      );
+    };
+
+    // Try to play with sound; fall back to muted + auto-unmute on interaction
     const playHero = () => {
       heroVideo.play().then(() => {
-        // Playing with sound OK
+        // Playing with sound — great
         setTimeout(showOverlay, 5000);
       }).catch(() => {
-        // Autoplay with sound blocked — fall back to muted
+        // Autoplay with sound blocked — start muted, unmute on first gesture
         heroVideo.muted = true;
         heroVideo.play().then(() => {
           setTimeout(showOverlay, 5000);
-          if (soundBtn) soundBtn.style.display = 'flex';
+          listenForUnmute();
         }).catch(() => {
           // Autoplay completely blocked
           revealText();
