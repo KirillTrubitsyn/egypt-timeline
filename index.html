@@ -1187,31 +1187,54 @@
   }
 
   /* Finale video section */
-  .finale-video-section {
+  /* ===== FINALE FULL-SCREEN SECTION ===== */
+  .finale-section {
     position: relative;
-    width: 100%;
+    width: 100vw;
+    min-height: 100vh;
     overflow: hidden;
-    border-radius: 12px;
-    margin-top: 2rem;
-    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
   }
-  .finale-video-section video {
+  .finale-video-wrap {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+  }
+  .finale-video-wrap video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
   }
-  .finale-overlay {
+  .finale-video-wrap .finale-poster {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
+    background: url('images/finale-poster.jpg') center/cover no-repeat;
+    z-index: 0;
+  }
+  .finale-overlay {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 2rem;
-    background: linear-gradient(180deg, rgba(10,22,40,0.3) 0%, rgba(10,22,40,0.75) 50%, rgba(10,22,40,0.85) 100%);
+    padding: 3rem 2rem;
+  }
+  .finale-video-wrap .finale-gradient {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(10,22,40,0.2) 0%, rgba(10,22,40,0.6) 40%, rgba(10,22,40,0.8) 100%);
+    opacity: 0;
+    transition: opacity 1.5s ease-in;
     z-index: 1;
+  }
+  .finale-video-wrap .finale-gradient.show {
+    opacity: 1;
   }
   .finale-overlay .img-caption,
   .finale-overlay .img-subcaption {
@@ -1223,25 +1246,72 @@
     transform: translateY(0);
     transition: opacity 1.5s ease-out 0s, transform 1.5s ease-out 0s;
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 900;
     color: var(--gold-light);
-    text-shadow: 0 2px 20px rgba(0,0,0,0.6);
-    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 30px rgba(201,168,76,0.4);
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
   }
   .finale-overlay.video-ended .img-subcaption {
     opacity: 0.85;
     transform: translateY(0);
     transition: opacity 1.5s ease-out 0.5s, transform 1.5s ease-out 0.5s;
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
     color: var(--sand);
     text-shadow: 0 1px 10px rgba(0,0,0,0.6);
-    max-width: 600px;
+    max-width: 700px;
+    line-height: 1.8;
   }
 
   /* Scroll indicator stays visible */
   .hero .scroll-indicator {
     z-index: 2;
+  }
+
+  /* ===== SOUND TOGGLE BUTTON ===== */
+  .sound-toggle {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 10;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(201,168,76,0.6);
+    background: rgba(10,22,40,0.6);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeInSound 1s ease-out 1s forwards;
+  }
+  .sound-toggle:hover {
+    background: rgba(201,168,76,0.3);
+    border-color: var(--gold);
+    transform: scale(1.1);
+  }
+  .sound-toggle svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--gold);
+  }
+  .sound-toggle .sound-off { display: none; }
+  .sound-toggle.muted .sound-on { display: none; }
+  .sound-toggle.muted .sound-off { display: block; }
+
+  @keyframes fadeInSound {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Finale sound button positioning */
+  .finale-section .sound-toggle {
+    bottom: 2rem;
+    right: 2rem;
   }
 </style>
 </head>
@@ -1254,7 +1324,10 @@
 <span class="hero-date">~12 000 до н.э.</span>
 <span class="hero-date-line"></span>
 <span class="hero-date">30 до н.э.</span>
-</div></div><a class="scroll-indicator" href="#nav">
+</div></div><button aria-label="Включить звук" class="sound-toggle muted" id="hero-sound-toggle">
+<svg class="sound-on" viewbox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+<svg class="sound-off" viewbox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
+</button><a class="scroll-indicator" href="#nav">
 <svg viewbox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
 </a></section>
 <!-- ===== NAVIGATION ===== -->
@@ -2226,9 +2299,12 @@
 <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-cleopatra.jpg"/></div>
 </div>
 </div>
-<div class="finale-video-section fade-in" style="margin-top: 2rem;"><video id="finale-video" muted="" playsinline="" poster="images/finale.jpg" preload="none"><source src="videos/finale.mp4" type="video/mp4"/></video><div class="finale-overlay" id="finale-overlay"><div class="img-caption">Конец Эпохи</div><div class="img-subcaption">~12 000 лет истории • 31 династия • Одна из величайших цивилизаций человечества уходит в вечность</div></div></div>
+
 </section>
-</main>
+<section class="finale-section" id="finale"><div class="finale-video-wrap"><div class="finale-poster"></div><video id="finale-video" muted="" playsinline="" preload="none"><source src="videos/finale.mp4" type="video/mp4"/></video><div class="finale-gradient" id="finale-gradient"></div></div><div class="finale-overlay" id="finale-overlay"><div class="img-caption">Конец Эпохи</div><div class="img-subcaption">~12 000 лет истории • 31 династия • Одна из величайших цивилизаций человечества уходит в вечность</div></div><button aria-label="Включить звук" class="sound-toggle muted" id="finale-sound-toggle">
+<svg class="sound-on" viewbox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>
+<svg class="sound-off" viewbox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
+</button></section></main>
 <!-- ===== FOOTER ===== -->
 <footer class="footer">
 <div class="footer-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋 𓀀</div>
@@ -2287,7 +2363,24 @@
 
   // ===== VIDEO BACKGROUND LOGIC =====
   
-  // Hero video: autoplay on load, reveal text when ended
+  // Sound toggle helper
+  function setupSoundToggle(btnId, videoId) {
+    const btn = document.getElementById(btnId);
+    const video = document.getElementById(videoId);
+    if (!btn || !video) return;
+    
+    btn.addEventListener('click', () => {
+      if (video.muted) {
+        video.muted = false;
+        btn.classList.remove('muted');
+      } else {
+        video.muted = true;
+        btn.classList.add('muted');
+      }
+    });
+  }
+
+  // Hero video: autoplay muted, user can enable sound
   (function() {
     const heroVideo = document.getElementById('hero-video');
     const heroContent = document.querySelector('.hero-content');
@@ -2295,13 +2388,14 @@
     
     if (!heroVideo || !heroContent) return;
     
-    // Try to play video
+    setupSoundToggle('hero-sound-toggle', 'hero-video');
+    
     const playHero = () => {
       heroVideo.play().then(() => {
-        // Video is playing - show overlay partway through
+        // Video is playing
         setTimeout(() => {
           if (heroOverlay) heroOverlay.classList.add('show');
-        }, 5000); // overlay appears 5s in
+        }, 5000);
       }).catch(() => {
         // Autoplay blocked — show text immediately
         heroContent.classList.remove('wait-for-video');
@@ -2311,28 +2405,28 @@
     };
     
     heroVideo.addEventListener('ended', () => {
-      // Video finished — reveal text with staggered fade-in
       heroContent.classList.remove('wait-for-video');
       heroContent.classList.add('video-ended');
       if (heroOverlay) heroOverlay.classList.add('show');
     });
     
-    // Also handle if video can't load
     heroVideo.addEventListener('error', () => {
       heroContent.classList.remove('wait-for-video');
       heroContent.classList.add('video-ended');
     });
     
-    // Start playing
     playHero();
   })();
   
-  // Finale video: play when scrolled into view, reveal text when ended
+  // Finale video: play when scrolled into view
   (function() {
     const finaleVideo = document.getElementById('finale-video');
     const finaleOverlay = document.getElementById('finale-overlay');
+    const finaleGradient = document.getElementById('finale-gradient');
     
     if (!finaleVideo || !finaleOverlay) return;
+    
+    setupSoundToggle('finale-sound-toggle', 'finale-video');
     
     let finaleStarted = false;
     
@@ -2340,23 +2434,30 @@
       entries.forEach(entry => {
         if (entry.isIntersecting && !finaleStarted) {
           finaleStarted = true;
-          finaleVideo.play().catch(() => {
-            // Autoplay blocked — show text immediately
+          finaleVideo.play().then(() => {
+            // Show gradient partway through
+            setTimeout(() => {
+              if (finaleGradient) finaleGradient.classList.add('show');
+            }, 4000);
+          }).catch(() => {
             finaleOverlay.classList.add('video-ended');
+            if (finaleGradient) finaleGradient.classList.add('show');
           });
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
     
     finaleVideo.addEventListener('ended', () => {
       finaleOverlay.classList.add('video-ended');
+      if (finaleGradient) finaleGradient.classList.add('show');
     });
     
     finaleVideo.addEventListener('error', () => {
       finaleOverlay.classList.add('video-ended');
+      if (finaleGradient) finaleGradient.classList.add('show');
     });
     
-    finaleObserver.observe(finaleVideo);
+    finaleObserver.observe(finaleVideo.closest('.finale-section') || finaleVideo);
   })();
 </script>
 </body>
