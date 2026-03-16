@@ -1350,7 +1350,7 @@
 </head>
 <body>
 <!-- ===== HERO ===== -->
-<section class="hero"><div class="hero-video-wrap"><video id="hero-video" muted="" playsinline="" poster="images/hero.jpg" preload="auto"><source src="videos/hero.mp4" type="video/mp4"/></video><div class="video-overlay" id="hero-overlay"></div></div><div class="hero-content wait-for-video"><div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div><h1>Древний Египет</h1><h2>Полный интерактивный таймлайн цивилизации</h2><p class="hero-subtitle">
+<section class="hero"><div class="hero-video-wrap"><video id="hero-video" playsinline="" poster="images/hero.jpg" preload="auto"><source src="videos/hero.mp4" type="video/mp4"/></video><div class="video-overlay" id="hero-overlay"></div></div><div class="hero-content wait-for-video"><div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div><h1>Древний Египет</h1><h2>Полный интерактивный таймлайн цивилизации</h2><p class="hero-subtitle">
     От первых охотников в зеленой Сахаре до завоевания Александром Македонским.
     Более 10 000 лет истории одной из величайших цивилизаций человечества.
   </p><div class="hero-dates">
@@ -1390,11 +1390,6 @@
 <div class="img-caption">Зеленая Сахара</div>
 <div class="img-subcaption">Плодородная саванна, ранние поселения, мегалиты Набта-Плая</div>
 </div>
-</div>
-<div class="illustration-panel nile fade-in">
-<div class="panel-emoji">🌍</div>
-<div class="panel-caption">Зеленая Сахара</div>
-<div class="panel-subcaption">12 000 лет назад Сахара была саванной с реками и мегафауной</div>
 </div>
 <div class="timeline">
 <div class="event fade-in">
@@ -1584,7 +1579,7 @@
 </div>
 </div>
 <!-- IV Dynasty -->
-<div class="accordion open fade-in">
+<div class="accordion fade-in">
 <button class="accordion-trigger" onclick="toggleAccordion(this)">
 <span class="accordion-icon">📐</span>
         IV династия — Золотой век пирамид (26 в. до н.э.)
@@ -1697,7 +1692,7 @@
 <div class="img-subcaption">Золотой век литературы, завоевание Нубии</div>
 </div>
 </div>
-<div class="accordion open fade-in">
+<div class="accordion fade-in">
 <button class="accordion-trigger" onclick="toggleAccordion(this)">
 <span class="accordion-icon">⚔</span>
         XI династия — Объединение (~2040 г. до н.э.)
@@ -1779,7 +1774,7 @@
 </div>
 </div>
 </div>
-<div class="accordion open fade-in">
+<div class="accordion fade-in">
 <button class="accordion-trigger" onclick="toggleAccordion(this)">
 <span class="accordion-icon">🏰</span>
         XII династия — Золотой век
@@ -1850,13 +1845,8 @@
 <div class="img-subcaption">Хатшепсут, Тутмос III, Рамзес Великий</div>
 </div>
 </div>
-<div class="illustration-panel night-sky fade-in">
-<div class="panel-emoji">☄</div>
-<div class="panel-caption">Эпоха великих фараонов</div>
-<div class="panel-subcaption">Хатшепсут • Тутмос III • Эхнатон • Тутанхамон • Рамзес II</div>
-</div>
 <!-- XVIII Dynasty: Liberation -->
-<div class="accordion open fade-in">
+<div class="accordion fade-in">
 <button class="accordion-trigger" onclick="toggleAccordion(this)">
 <span class="accordion-icon">🗡</span>
         Изгнание гиксосов и XVIII династия (~1550-е гг.)
@@ -2202,7 +2192,7 @@
 <div class="img-subcaption">Ассирийцы, персы, последние египетские фараоны</div>
 </div>
 </div>
-<div class="accordion open fade-in">
+<div class="accordion fade-in">
 <button class="accordion-trigger" onclick="toggleAccordion(this)">
 <span class="accordion-icon">🏴</span>
         XXV (Кушитская) династия
@@ -2329,7 +2319,7 @@
 <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-cleopatra.jpg"/></div>
 </div>
 </div>
-<div class="finale-video-section fade-in" style="margin-top: 2rem;"><video id="finale-video" muted="" playsinline="" poster="images/finale.jpg" preload="none"><source src="videos/finale.mp4" type="video/mp4"/></video><div class="finale-overlay" id="finale-overlay"><div class="img-caption">Конец Эпохи</div><div class="img-subcaption">~12 000 лет истории • 31 династия • Одна из величайших цивилизаций человечества уходит в вечность</div></div></div>
+<div class="finale-video-section fade-in" style="margin-top: 2rem;"><video id="finale-video" playsinline="" poster="images/finale.jpg" preload="none"><source src="videos/finale.mp4" type="video/mp4"/></video><div class="finale-overlay" id="finale-overlay"><div class="img-caption">Конец Эпохи</div><div class="img-subcaption">~12 000 лет истории • 31 династия • Одна из величайших цивилизаций человечества уходит в вечность</div></div></div>
 </section>
 </main>
 <!-- ===== FOOTER ===== -->
@@ -2398,18 +2388,33 @@
     
     if (!heroVideo || !heroContent) return;
     
-    // Try to play video
+    // Try to play video with sound; fall back to muted autoplay
     const playHero = () => {
       heroVideo.play().then(() => {
-        // Video is playing - show overlay partway through
+        // Video is playing with sound - show overlay partway through
         setTimeout(() => {
           if (heroOverlay) heroOverlay.classList.add('show');
-        }, 5000); // overlay appears 5s in
+        }, 5000);
       }).catch(() => {
-        // Autoplay blocked — show text immediately
-        heroContent.classList.remove('wait-for-video');
-        heroContent.classList.add('video-ended');
-        if (heroOverlay) heroOverlay.classList.add('show');
+        // Autoplay with sound blocked — try muted, unmute on first interaction
+        heroVideo.muted = true;
+        heroVideo.play().then(() => {
+          setTimeout(() => {
+            if (heroOverlay) heroOverlay.classList.add('show');
+          }, 5000);
+          const unmute = () => {
+            heroVideo.muted = false;
+            document.removeEventListener('click', unmute);
+            document.removeEventListener('touchstart', unmute);
+          };
+          document.addEventListener('click', unmute, { once: true });
+          document.addEventListener('touchstart', unmute, { once: true });
+        }).catch(() => {
+          // Autoplay completely blocked — show text immediately
+          heroContent.classList.remove('wait-for-video');
+          heroContent.classList.add('video-ended');
+          if (heroOverlay) heroOverlay.classList.add('show');
+        });
       });
     };
     
@@ -2444,8 +2449,19 @@
         if (entry.isIntersecting && !finaleStarted) {
           finaleStarted = true;
           finaleVideo.play().catch(() => {
-            // Autoplay blocked — show text immediately
-            finaleOverlay.classList.add('video-ended');
+            // Autoplay with sound blocked — try muted, unmute on interaction
+            finaleVideo.muted = true;
+            finaleVideo.play().then(() => {
+              const unmute = () => {
+                finaleVideo.muted = false;
+                document.removeEventListener('click', unmute);
+                document.removeEventListener('touchstart', unmute);
+              };
+              document.addEventListener('click', unmute, { once: true });
+              document.addEventListener('touchstart', unmute, { once: true });
+            }).catch(() => {
+              finaleOverlay.classList.add('video-ended');
+            });
           });
         }
       });
