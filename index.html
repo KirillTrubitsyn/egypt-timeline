@@ -1346,7 +1346,7 @@
 </head>
 <body>
 <!-- ===== HERO ===== -->
-<section class="hero"><div class="hero-video-wrap"><video id="hero-video" playsinline="" poster="images/hero.jpg" preload="auto"><source src="videos/hero.mp4" type="video/mp4"/></video><div class="video-overlay" id="hero-overlay"></div></div><div class="hero-content wait-for-video"><div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div><h1>Древний Египет</h1><h2>Полный интерактивный таймлайн цивилизации</h2><p class="hero-subtitle">
+<section class="hero"><div class="hero-video-wrap"><video id="hero-video" muted="" playsinline="" poster="images/hero.jpg" preload="auto"><source src="videos/hero.mp4" type="video/mp4"/></video><div class="video-overlay" id="hero-overlay"></div></div><div class="hero-content wait-for-video"><div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div><h1>Древний Египет</h1><h2>Полный интерактивный таймлайн цивилизации</h2><p class="hero-subtitle">
     От первых охотников в зеленой Сахаре до завоевания Александром Македонским.
     Более 10 000 лет истории одной из величайших цивилизаций человечества.
   </p><div class="hero-dates">
@@ -2444,21 +2444,15 @@
       );
     };
 
-    // Try to play with sound; fall back to muted + auto-unmute on interaction
+    // Start muted (required for reliable autoplay), unmute on first user gesture
     const playHero = () => {
+      heroVideo.muted = true;
       heroVideo.play().then(() => {
-        // Playing with sound — great
         setTimeout(showOverlay, 5000);
+        listenForUnmute();
       }).catch(() => {
-        // Autoplay with sound blocked — start muted, unmute on first gesture
-        heroVideo.muted = true;
-        heroVideo.play().then(() => {
-          setTimeout(showOverlay, 5000);
-          listenForUnmute();
-        }).catch(() => {
-          // Autoplay completely blocked
-          revealText();
-        });
+        // Autoplay completely blocked — show text immediately
+        revealText();
       });
     };
 
