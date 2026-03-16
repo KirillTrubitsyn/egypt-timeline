@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Древний Египет — Полный таймлайн</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#C9A84C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Древний Египет">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Интерактивный таймлайн цивилизации Древнего Египта — от первых охотников до завоевания Римом">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap');
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D48B;
+    --gold-dark: #9B7B2F;
+    --sand: #F5E6C8;
+    --sand-light: #FFF8ED;
+    --sand-dark: #D4C4A0;
+    --papyrus: #F2E8D5;
+    --lapis: #1B3A5C;
+    --lapis-light: #2A5580;
+    --lapis-dark: #0F2440;
+    --turquoise: #30A89E;
+    --turquoise-light: #5BCEC5;
+    --red-ochre: #C44536;
+    --copper: #B87333;
+    --night: #0A1628;
+    --text: #2C1810;
+    --text-light: #6B5B4E;
+    --white: #FFFDF8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--night);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(10,22,40,0.65) 0%, rgba(15,36,64,0.5) 40%, rgba(27,58,92,0.4) 60%, rgba(155,123,47,0.5) 85%, rgba(212,196,160,0.6) 100%), url('images/hero.jpg') center/cover no-repeat;
+    overflow: hidden;
+    padding: 2rem;
+  }
+
+  .hero::before {
+    display: none;
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 30% 10%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1.5px 1.5px at 50% 15%, rgba(255,255,255,0.9), transparent),
+      radial-gradient(1px 1px at 70% 25%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 90% 8%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1.5px 1.5px at 15% 35%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 85% 30%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 45% 5%, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 60% 18%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(2px 2px at 25% 7%, rgba(201,168,76,0.9), transparent);
+    pointer-events: none;
+    animation: twinkle 4s ease-in-out infinite alternate;
+  }
+
+  @keyframes twinkle { 0% { opacity: 0.7; } 100% { opacity: 1; } }
+
+  /* Pyramids silhouette */
+  .pyramids-bg {
+    display: none;
+  }
+
+  .pyramid {
+    position: absolute;
+    bottom: 0;
+    width: 0; height: 0;
+  }
+  .pyramid-1 {
+    left: 15%;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-bottom: 220px solid rgba(42, 35, 20, 0.5);
+  }
+  .pyramid-2 {
+    left: 35%;
+    border-left: 180px solid transparent;
+    border-right: 180px solid transparent;
+    border-bottom: 280px solid rgba(42, 35, 20, 0.6);
+  }
+  .pyramid-3 {
+    left: 60%;
+    border-left: 120px solid transparent;
+    border-right: 120px solid transparent;
+    border-bottom: 190px solid rgba(42, 35, 20, 0.45);
+  }
+
+  .hero-hieroglyphs {
+    font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    opacity: 0.5;
+    letter-spacing: 0.8rem;
+    margin-bottom: 2rem;
+    animation: fadeInDown 1.5s ease-out;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    color: var(--gold-light);
+    text-shadow: 0 2px 30px rgba(201,168,76,0.4);
+    margin-bottom: 0.5rem;
+    animation: fadeInUp 1.2s ease-out;
+    letter-spacing: 0.05em;
+  }
+
+  .hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    font-weight: 400;
+    color: var(--sand);
+    opacity: 0.85;
+    margin-bottom: 1rem;
+    animation: fadeInUp 1.4s ease-out;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    color: var(--sand-dark);
+    max-width: 600px;
+    animation: fadeInUp 1.6s ease-out;
+    line-height: 1.8;
+  }
+
+  .hero-dates {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    animation: fadeInUp 1.8s ease-out;
+  }
+
+  .hero-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .hero-date-line {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+  }
+
+  .scroll-indicator svg {
+    width: 30px; height: 30px;
+    stroke: var(--gold);
+    stroke-width: 2;
+    fill: none;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== NAVIGATION ===== */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 22, 40, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-bar::-webkit-scrollbar { height: 3px; }
+  .nav-bar::-webkit-scrollbar-track { background: transparent; }
+  .nav-bar::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    min-width: max-content;
+  }
+
+  .nav-bar a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.9rem 1rem;
+    color: var(--sand-dark);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-bar a:hover, .nav-bar a.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+
+  .nav-bar a .nav-icon {
+    font-size: 1rem;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+    background: var(--white);
+    min-height: 100vh;
+  }
+
+  /* ===== ERA SECTION ===== */
+  .era-section {
+    padding: 3rem 0 1rem;
+  }
+
+  .era-header {
+    position: relative;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .era-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.12;
+    z-index: 0;
+  }
+
+  .era-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    position: absolute;
+    top: -0.5rem;
+    right: 1.5rem;
+    opacity: 0.08;
+    line-height: 1;
+  }
+
+  .era-period {
+    position: relative;
+    z-index: 1;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+
+  .era-title {
+    position: relative;
+    z-index: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .era-desc {
+    position: relative;
+    z-index: 1;
+    font-size: 0.9rem;
+    opacity: 0.75;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* Era color themes */
+  .era-predynastic .era-header { background: linear-gradient(135deg, #2D1B0E, #4A3220); }
+  .era-predynastic .era-header * { color: var(--sand); }
+  .era-predynastic .era-period { color: var(--copper); }
+
+  .era-early .era-header { background: linear-gradient(135deg, #1a2a1a, #2d4a2d); }
+  .era-early .era-header * { color: var(--sand); }
+  .era-early .era-period { color: var(--turquoise-light); }
+
+  .era-old .era-header { background: linear-gradient(135deg, var(--lapis-dark), var(--lapis)); }
+  .era-old .era-header * { color: var(--gold-light); }
+  .era-old .era-period { color: var(--turquoise-light); }
+
+  .era-middle .era-header { background: linear-gradient(135deg, #3d1f0a, #6b3a1f); }
+  .era-middle .era-header * { color: var(--sand); }
+  .era-middle .era-period { color: var(--gold); }
+
+  .era-new .era-header { background: linear-gradient(135deg, #4a1525, #7a2040); }
+  .era-new .era-header * { color: var(--gold-light); }
+  .era-new .era-period { color: #f5a0b5; }
+
+  .era-third .era-header { background: linear-gradient(135deg, #1a1a2e, #2d2d5e); }
+  .era-third .era-header * { color: var(--sand); }
+  .era-third .era-period { color: #a0a0f5; }
+
+  .era-late .era-header { background: linear-gradient(135deg, #0a2a2a, #1a4a4a); }
+  .era-late .era-header * { color: var(--sand); }
+  .era-late .era-period { color: var(--turquoise-light); }
+
+  .era-ptolemaic .era-header { background: linear-gradient(135deg, #1a0a2a, #3a1a5a); }
+  .era-ptolemaic .era-header * { color: var(--gold-light); }
+  .era-ptolemaic .era-period { color: #c5a0f5; }
+
+  /* ===== TIMELINE EVENTS ===== */
+  .timeline {
+    position: relative;
+    padding-left: 2.5rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold), var(--gold-dark), transparent);
+  }
+
+  .event {
+    position: relative;
+    margin-bottom: 1.8rem;
+    padding-left: 1rem;
+    animation: eventAppear 0.5s ease-out;
+  }
+
+  .event::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem;
+    top: 0.55rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--gold-dark), 0 2px 8px rgba(201,168,76,0.3);
+    z-index: 2;
+  }
+
+  .event.major::before {
+    width: 16px;
+    height: 16px;
+    top: 0.35rem;
+    left: calc(-2.5rem - 2px);
+    background: var(--red-ochre);
+    box-shadow: 0 0 0 2px var(--red-ochre), 0 2px 12px rgba(196,69,54,0.4);
+  }
+
+  .event-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+  }
+
+  .event-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+
+  .event-body {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  .event-body strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  @keyframes eventAppear {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* ===== ACCORDION ===== */
+  .accordion {
+    margin-bottom: 1rem;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--white);
+    transition: box-shadow 0.3s;
+  }
+
+  .accordion:hover {
+    box-shadow: 0 2px 16px rgba(201,168,76,0.1);
+  }
+
+  .accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.1rem 1.3rem;
+    border: none;
+    background: linear-gradient(135deg, rgba(242,232,213,0.5), rgba(245,230,200,0.3));
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    transition: background 0.3s;
+  }
+
+  .accordion-trigger:hover {
+    background: linear-gradient(135deg, rgba(242,232,213,0.8), rgba(245,230,200,0.5));
+  }
+
+  .accordion-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .accordion-arrow {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: var(--gold-dark);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .accordion.open .accordion-arrow {
+    transform: rotate(180deg);
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .accordion.open .accordion-content {
+    max-height: 5000px;
+  }
+
+  .accordion-inner {
+    padding: 1rem 1.3rem 1.5rem;
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  /* ===== FACT CARDS ===== */
+  .fact-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem;
+    margin: 1rem 0;
+    border-radius: 12px;
+    border-left: 4px solid var(--gold);
+  }
+
+  .fact-card.culture { background: linear-gradient(135deg, #f8f0e3, #faf5eb); border-left-color: var(--copper); }
+  .fact-card.war { background: linear-gradient(135deg, #fce8e6, #fdf2f0); border-left-color: var(--red-ochre); }
+  .fact-card.building { background: linear-gradient(135deg, #e8f0f8, #eef5fb); border-left-color: var(--lapis); }
+  .fact-card.religion { background: linear-gradient(135deg, #f0e8f8, #f5eefb); border-left-color: #7B2D8E; }
+  .fact-card.diplomacy { background: linear-gradient(135deg, #e8f8f0, #eefbf5); border-left-color: var(--turquoise); }
+  .fact-card.crisis { background: linear-gradient(135deg, #f8f0e0, #fdf5e8); border-left-color: #CC8400; }
+
+  .fact-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    line-height: 1;
+    padding-top: 0.1rem;
+  }
+
+  .fact-content {
+    flex: 1;
+  }
+
+  .fact-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    margin-bottom: 0.3rem;
+  }
+
+  .fact-text {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* ===== PHARAOH CARDS ===== */
+  .pharaoh-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .pharaoh-card {
+    background: linear-gradient(145deg, var(--sand-light), var(--papyrus));
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 12px;
+    padding: 1.2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pharaoh-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(201,168,76,0.15);
+  }
+
+  .pharaoh-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, transparent 50%, rgba(201,168,76,0.08) 50%);
+  }
+
+  .pharaoh-cartouche {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.7rem;
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin-bottom: 0.6rem;
+    background: rgba(255,255,255,0.5);
+  }
+
+  .pharaoh-reign {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .pharaoh-desc {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ===== DECORATIVE DIVIDERS ===== */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    color: var(--gold);
+    opacity: 0.5;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .divider-symbol {
+    font-size: 1.2rem;
+  }
+
+  /* ===== STATS BAR ===== */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .stat {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 12px;
+    background: linear-gradient(145deg, var(--sand-light), var(--papyrus));
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold-dark);
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.2rem;
+  }
+
+  /* ===== ILLUSTRATION PANELS ===== */
+  .illustration-panel {
+    position: relative;
+    margin: 1.5rem 0;
+    padding: 2rem;
+    border-radius: 16px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .illustration-panel.nile {
+    background: linear-gradient(180deg, #87CEEB 0%, #4A90B8 30%, #2E7D5B 60%, #D4A94C 70%, #C9A84C 100%);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .illustration-panel.desert {
+    background: linear-gradient(180deg, #E8C170, #D4A94C, #B8892E);
+    min-height: 150px;
+  }
+
+  .illustration-panel.night-sky {
+    background: linear-gradient(180deg, #0A1628, #1B3A5C, #2A5580);
+    min-height: 180px;
+    color: var(--gold-light);
+  }
+
+  .panel-emoji {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+  }
+
+  .panel-caption {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+    color: white;
+  }
+
+  .panel-subcaption {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    color: white;
+    margin-top: 0.3rem;
+  }
+
+  /* Pyramid CSS illustration */
+  .pyramid-illustration {
+    position: relative;
+    margin: 2rem auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: linear-gradient(180deg, #87CEEB 0%, #E8C170 65%, #D4A94C 100%);
+    border-radius: 16px;
+    min-height: 250px;
+    overflow: hidden;
+  }
+
+  .css-pyramid {
+    position: relative;
+    z-index: 2;
+  }
+
+  .css-pyramid.large {
+    width: 0; height: 0;
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-bottom: 130px solid #C9A84C;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+  }
+
+  .css-pyramid.medium {
+    width: 0; height: 0;
+    border-left: 65px solid transparent;
+    border-right: 65px solid transparent;
+    border-bottom: 105px solid #B89A3C;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+  }
+
+  .css-pyramid.small {
+    width: 0; height: 0;
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    border-bottom: 72px solid #D4AA4C;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+  }
+
+  .sun-disc {
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFE066, #FFB800, #FF8C00);
+    box-shadow: 0 0 40px rgba(255,184,0,0.5), 0 0 80px rgba(255,184,0,0.2);
+    z-index: 1;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--night);
+    color: var(--sand-dark);
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .footer-hieroglyphs {
+    font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+    font-size: 1.8rem;
+    color: var(--gold-dark);
+    opacity: 0.3;
+    letter-spacing: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer p {
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .footer .source {
+    color: var(--gold-dark);
+    font-weight: 600;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .content { padding: 0 1rem 3rem; }
+    .era-header { padding: 1.8rem 1.2rem; }
+    .era-title { font-size: 1.4rem; }
+    .timeline { padding-left: 2rem; }
+    .event { padding-left: 0.5rem; }
+    .pharaoh-grid { grid-template-columns: 1fr; }
+    .pyramid-illustration { gap: 0.5rem; padding: 1.5rem; }
+    .css-pyramid.large {
+      border-left-width: 55px; border-right-width: 55px; border-bottom-width: 90px;
+    }
+    .css-pyramid.medium {
+      border-left-width: 45px; border-right-width: 45px; border-bottom-width: 72px;
+    }
+    .css-pyramid.small {
+      border-left-width: 30px; border-right-width: 30px; border-bottom-width: 48px;
+    }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== EVENT MINI-ILLUSTRATIONS ===== */
+  .event.has-thumb .event-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .event.has-thumb.thumb-right,
+  .event.has-thumb.thumb-left {
+    position: relative;
+  }
+
+  .event.has-thumb.thumb-right .event-thumb,
+  .event.has-thumb.thumb-left .event-thumb {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .event.has-thumb.thumb-right .event-content,
+  .event.has-thumb.thumb-left .event-content {
+    padding-right: 125px;
+  }
+
+  .event-thumb {
+    width: 110px;
+    height: 110px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(201,168,76,0.15);
+    border: 2px solid rgba(201,168,76,0.25);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .event-thumb:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0 2px 8px rgba(201,168,76,0.3);
+  }
+
+  .event-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .event.major .event-thumb {
+    width: 130px;
+    height: 130px;
+    border-color: rgba(196,69,54,0.3);
+    box-shadow: 0 4px 16px rgba(196,69,54,0.15), 0 1px 4px rgba(201,168,76,0.1);
+  }
+
+  .event.major.has-thumb.thumb-right .event-content,
+  .event.major.has-thumb.thumb-left .event-content {
+    padding-right: 145px;
+  }
+
+  @media (max-width: 768px) {
+    .event-thumb {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+    }
+    .event.major .event-thumb {
+      width: 96px;
+      height: 96px;
+    }
+    .event.has-thumb.thumb-right .event-content,
+    .event.has-thumb.thumb-left .event-content {
+      padding-right: 92px;
+    }
+    .event.major.has-thumb.thumb-right .event-content,
+    .event.major.has-thumb.thumb-left .event-content {
+      padding-right: 108px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .event-thumb {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+    }
+    .event.major .event-thumb {
+      width: 80px;
+      height: 80px;
+    }
+    .event.has-thumb.thumb-right .event-content,
+    .event.has-thumb.thumb-left .event-content {
+      padding-right: 76px;
+    }
+    .event.major.has-thumb.thumb-right .event-content,
+    .event.major.has-thumb.thumb-left .event-content {
+      padding-right: 92px;
+    }
+  }
+
+  /* ===== ERA ILLUSTRATION IMAGES ===== */
+  .era-illustration {
+    position: relative;
+    width: 100%;
+    margin: 0 0 2rem;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15), 0 2px 8px rgba(201,168,76,0.1);
+  }
+
+  .era-illustration img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .era-illustration:hover img {
+    transform: scale(1.03);
+  }
+
+  .era-illustration .img-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.5rem 1.2rem;
+    background: linear-gradient(transparent, rgba(10,22,40,0.85));
+    color: var(--sand);
+  }
+
+  .era-illustration .img-caption {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 0.3rem;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+
+  .era-illustration .img-subcaption {
+    font-size: 0.82rem;
+    color: var(--sand-dark);
+    line-height: 1.5;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+
+  /* Enhanced era headers with subtle image background */
+  .era-header-illustrated {
+    position: relative;
+    padding: 3rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: default;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .era-header-illustrated .era-bg-img {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.35) saturate(1.2);
+    transition: filter 0.5s;
+  }
+
+  .era-header-illustrated:hover .era-bg-img {
+    filter: brightness(0.45) saturate(1.3);
+  }
+
+  .era-header-illustrated .era-number,
+  .era-header-illustrated .era-period,
+  .era-header-illustrated .era-title,
+  .era-header-illustrated .era-desc {
+    position: relative;
+    z-index: 2;
+  }
+
+  .era-header-illustrated .era-period {
+    color: var(--gold);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+
+  .era-header-illustrated .era-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--gold-light);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    line-height: 1.2;
+  }
+
+  .era-header-illustrated .era-desc {
+    color: var(--sand);
+    font-size: 0.9rem;
+    opacity: 0.9;
+    max-width: 600px;
+    line-height: 1.6;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  }
+
+  .era-header-illustrated .era-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    position: absolute;
+    top: -0.5rem;
+    right: 1.5rem;
+    opacity: 0.15;
+    color: var(--gold);
+    line-height: 1;
+    text-shadow: none;
+  }
+
+  .era-divider-strip {
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold), var(--gold-dark), transparent);
+    margin: 0 0 0.5rem;
+    border-radius: 2px;
+    opacity: 0.4;
+  }
+
+  </style>
+</head>
+<body>
+<!-- ===== HERO ===== -->
+<section class="hero">
+<div class="pyramids-bg">
+<div class="pyramid pyramid-1"></div>
+<div class="pyramid pyramid-2"></div>
+<div class="pyramid pyramid-3"></div>
+</div>
+<div class="hero-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋</div>
+<h1>Древний Египет</h1>
+<h2>Полный интерактивный таймлайн цивилизации</h2>
+<p class="hero-subtitle">
+    От первых охотников в зеленой Сахаре до завоевания Александром Македонским.
+    Более 10 000 лет истории одной из величайших цивилизаций человечества.
+  </p>
+<div class="hero-dates">
+<span class="hero-date">~12 000 до н.э.</span>
+<span class="hero-date-line"></span>
+<span class="hero-date">30 до н.э.</span>
+</div>
+<a class="scroll-indicator" href="#nav">
+<svg viewbox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</a>
+</section>
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav-bar" id="nav">
+<div class="nav-inner">
+<a href="#predynastic"><span class="nav-icon">🏜</span> Додинастический</a>
+<a href="#early"><span class="nav-icon">🏛</span> Раннее царство</a>
+<a href="#old"><span class="nav-icon">📐</span> Древнее царство</a>
+<a href="#middle"><span class="nav-icon">⚔</span> Среднее царство</a>
+<a href="#new"><span class="nav-icon">👑</span> Новое царство</a>
+<a href="#third"><span class="nav-icon">🕳</span> III переходный</a>
+<a href="#late"><span class="nav-icon">🪖</span> Позднее царство</a>
+<a href="#ptolemaic"><span class="nav-icon">🏛</span> Птолемеи</a>
+</div>
+</nav>
+<!-- ===== CONTENT ===== -->
+<main class="content">
+<!-- ========== I. DODYNASTIC ========== -->
+<section class="era-section era-predynastic" id="predynastic">
+<div class="era-header-illustrated fade-in">
+      <div class="era-bg-img" style="background-image: url('images/era-predynastic.jpg');"></div>
+<span class="era-number">I</span>
+<div class="era-period">~12 000 — 3100 гг. до н.э.</div>
+<h2 class="era-title">Додинастический период</h2>
+<p class="era-desc">От зеленой Сахары до объединения Двух Земель под властью Нармера</p>
+</div>
+
+    <div class="era-illustration fade-in">
+<img alt="Зеленая Сахара — ранние поселения у Нила" loading="lazy" src="images/era-predynastic.jpg"/>
+<div class="img-overlay">
+<div class="img-caption">Зеленая Сахара</div>
+<div class="img-subcaption">Плодородная саванна, ранние поселения, мегалиты Набта-Плая</div>
+</div>
+</div>
+<div class="illustration-panel nile fade-in">
+<div class="panel-emoji">🌍</div>
+<div class="panel-caption">Зеленая Сахара</div>
+<div class="panel-subcaption">12 000 лет назад Сахара была саванной с реками и мегафауной</div>
+</div>
+<div class="timeline">
+<div class="event fade-in">
+<div class="event-date">~12 000 – 13 000 лет назад</div>
+<div class="event-title">Конец ледникового периода</div>
+<div class="event-body">Сахара представляет собой обильную <strong>саванну</strong> с большим количеством рек и африканской мегафауной. Люди ведут образ жизни охотников и собирателей.</div>
+</div>
+<div class="event fade-in has-thumb thumb-right">
+        <div class="event-content">
+<div class="event-date">~6000 г. до н.э.</div>
+<div class="event-title">Зарождение земледелия и астрономии</div>
+<div class="event-body">Примитивное земледелие на территории будущего Египта. В верховьях Нила появляются первые мегалитические комплексы, такие как <strong>Набта-Плая</strong>, камни в которых выстраивались по звезде <strong>Сириус</strong>.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-nabta.jpg"/></div>
+      </div>
+<div class="event fade-in">
+<div class="event-date">~5000 г. до н.э.</div>
+<div class="event-title">Культура Меримде</div>
+<div class="event-body">Из Месопотамии проникают передовые технологии: выращивание <strong>ячменя и пшеницы</strong>, одомашнивание овец, коз и уток. Зарождается традиция египетского <strong>пивоварения</strong> из проросшего ячменя.</div>
+</div>
+<div class="event fade-in">
+<div class="event-date">~4000 – 3800 гг. до н.э.</div>
+<div class="event-title">Культура Бадари</div>
+<div class="event-body">Из-за <strong>высыхания Сахары</strong> люди концентрируются в долине Нила. Появляются тростниковые лодки и первые корабельные «ватаги». Формируется представление о <strong>Западе как стране мертвых</strong> — умерших хоронят лицом на запад.</div>
+</div>
+<div class="event fade-in">
+<div class="event-date">~3600 – 3500 гг. до н.э.</div>
+<div class="event-title">Амратская культура</div>
+<div class="event-body">Активная торговля через Синай: <strong>медь</strong> и <strong>лазурит</strong> (из Афганистана). Влияние шумеров — знаменитый <strong>нож из Джебель эль-Арак</strong> с шумерскими мотивами. Социальное расслоение: богатые захоронения с рабами-карликами из Нубии.</div>
+</div>
+<div class="event fade-in">
+<div class="event-date">~3500 – 3400 гг. до н.э.</div>
+<div class="event-title">Герзейская культура и система номов</div>
+<div class="event-body">Развивается система <strong>номов</strong> — деревень вокруг культовых центров: <strong>Иераконполь (Нехен)</strong>, <strong>Тинис</strong>, <strong>Дендера</strong>. Формируется Иераконпольская девятка богов и концепция космического порядка <strong>Маат</strong>.</div>
+</div>
+<div class="event fade-in">
+<div class="event-date">Середина IV тыс. до н.э.</div>
+<div class="event-title">Эпоха первых вождей («Династии 00 и 0»)</div>
+<div class="event-body">Вожди берут тотемные имена: <strong>Хор Скорпион</strong> (Тинис), <strong>Хор Боец</strong>, <strong>Хор Хватала</strong>. Ожесточенные войны между номами. Общество делится на воинов <em>хенемет</em> («солнечный народ») и рабов <em>рехи</em> (символ — сокол со сломанным крылом).</div>
+</div>
+<div class="event major fade-in has-thumb thumb-left">
+        <div class="event-content">
+<div class="event-date">~3100 г. до н.э.</div>
+<div class="event-title">👑 Объединение Египта. Царь Нармер</div>
+<div class="event-body">
+<strong>Нармер</strong> («Свирепый сом») объединяет Верхний и Нижний Египет. На <strong>Палетке Нармера</strong> он изображен в коронах обоих царств. Захвачено <strong>120 000 пленных</strong>. Его сын <strong>Менес</strong> — основатель I династии по Манефону. Внук <strong>Хор Аха</strong> завершает покорение Нижнего Египта.
+        </div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-narmer.jpg"/></div>
+      </div>
+</div>
+</section>
+<div class="divider"><span class="divider-symbol">𓂭</span></div>
+<!-- ========== II. EARLY KINGDOM ========== -->
+<section class="era-section era-early" id="early">
+<div class="era-header-illustrated fade-in">
+      <div class="era-bg-img" style="background-image: url('images/era-early.jpg');"></div>
+<span class="era-number">II</span>
+<div class="era-period">~3000 — 2650 гг. до н.э. • I–II династии</div>
+<h2 class="era-title">Раннее царство</h2>
+<p class="era-desc">Первые династии, мастабы и человеческие жертвоприношения</p>
+</div>
+
+    <div class="era-illustration fade-in">
+<img alt="Объединение Верхнего и Нижнего Египта" loading="lazy" src="images/era-early.jpg"/>
+<div class="img-overlay">
+<div class="img-caption">Объединение Двух Земель</div>
+<div class="img-subcaption">Царь Нармер объединяет Верхний и Нижний Египет</div>
+</div>
+</div>
+<div class="timeline">
+<div class="event fade-in">
+<div class="event-date">I династия (8 царей)</div>
+<div class="event-title">Строительство мастаб и ритуальные жертвоприношения</div>
+<div class="event-body">Массовые человеческие жертвоприношения: в гробнице <strong>Хора Джера</strong> найдено <strong>318 тел</strong> приближенных и слуг, задушенных в расцвете сил. <strong>Мернейт</strong> — первая женщина-правительница (регент при малолетнем <strong>Хоре Дене</strong>).</div>
+</div>
+<div class="event fade-in">
+<div class="event-date">~2850 г. до н.э.</div>
+<div class="event-title">Первые экспедиции в Нубию</div>
+<div class="event-body">Первые зафиксированные экспедиции за <strong>первый порог Нила</strong> в Нубию за <strong>золотом</strong> и строительным гнейсом.</div>
+</div>
+<div class="event fade-in">
+<div class="event-date">~2700-е гг. до н.э. • II династия</div>
+<div class="event-title">Кризис и гражданская война</div>
+<div class="event-body">Фараон <strong>Перибсен</strong> отвергает имя Хора и берет имя бога Сета — религиозный раскол. Фараон <strong>Хасехемуи</strong> подавляет восстания и восстанавливает порядок. Человеческие жертвоприношения <strong>полностью прекращаются</strong>.</div>
+</div>
+</div>
+</section>
+<div class="divider"><span class="divider-symbol">𓂸</span></div>
+<!-- ========== III. OLD KINGDOM ========== -->
+<section class="era-section era-old" id="old">
+<div class="era-header-illustrated fade-in">
+      <div class="era-bg-img" style="background-image: url('images/era-old.jpg');"></div>
+<span class="era-number">III</span>
+<div class="era-period">~2650 — 2150 гг. до н.э. • III–VI династии</div>
+<h2 class="era-title">Древнее (Старое) царство</h2>
+<p class="era-desc">Эпоха великих пирамид, от Джосера до Пепи II</p>
+</div>
+
+    <div class="era-illustration fade-in">
+<img alt="Строительство Великой пирамиды" loading="lazy" src="images/era-old.jpg"/>
+<div class="img-overlay">
+<div class="img-caption">Эпоха пирамид</div>
+<div class="img-subcaption">Гиза, Великая пирамида Хуфу, расцвет государства</div>
+</div>
+</div>
+<!-- Pyramids illustration -->
+<div class="pyramid-illustration fade-in">
+<div class="sun-disc"></div>
+<div class="css-pyramid small"></div>
+<div class="css-pyramid large"></div>
+<div class="css-pyramid medium"></div>
+</div>
+<div class="stats-bar fade-in">
+<div class="stat">
+<div class="stat-value">4</div>
+<div class="stat-label">Династии</div>
+</div>
+<div class="stat">
+<div class="stat-value">~500</div>
+<div class="stat-label">Лет расцвета</div>
+</div>
+<div class="stat">
+<div class="stat-value">68 т</div>
+<div class="stat-label">Макс. вес блока</div>
+</div>
+<div class="stat">
+<div class="stat-value">94</div>
+<div class="stat-label">Лет правления Пепи II</div>
+</div>
+</div>
+<!-- III Dynasty -->
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🏛</span>
+        III династия — Рождение пирамид (~2650 г. до н.э.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event major has-thumb thumb-right">
+        <div class="event-content">
+<div class="event-date">~2650–2625 гг. до н.э.</div>
+<div class="event-title">Фараон Джосер и архитектор Имхотеп</div>
+<div class="event-body">Столица переносится в <strong>Мемфис</strong>. Визирь <strong>Имхотеп</strong> ставит шесть мастаб друг на друга и возводит <strong>первую Ступенчатую пирамиду в Саккаре</strong> — революция в зодчестве. Последний фараон династии <strong>Хуни</strong> начинает строительство в Мейдуме.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-djoser.jpg"/></div>
+      </div>
+</div>
+</div>
+</div>
+</div>
+<!-- IV Dynasty -->
+<div class="accordion open fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">📐</span>
+        IV династия — Золотой век пирамид (26 в. до н.э.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="pharaoh-grid">
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">👑 Снофру</div>
+<div class="pharaoh-reign">Основатель IV династии</div>
+<div class="pharaoh-desc">Реформа налогов, 122 скотоводческих хозяйства, 35 каменоломен. Построил <strong>3 пирамиды</strong>: Мейдум, <strong>Ломаную</strong> (угол изменен с 54° до 43°) и первую правильную <strong>Розовую пирамиду</strong>.</div>
+</div>
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">👑 Хуфу (Хеопс)</div>
+<div class="pharaoh-reign">Строитель Великой пирамиды</div>
+<div class="pharaoh-desc">С архитектором <strong>Хемиуном</strong> возвел <strong>Великую пирамиду Гизы</strong> из блоков до 68 тонн. Рабочий город на 4 000 жителей + 10–15 тыс. сезонных рабочих.</div>
+</div>
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">👑 Хафра (Хефрен)</div>
+<div class="pharaoh-reign">Строитель Сфинкса</div>
+<div class="pharaoh-desc">Вторая гигантская пирамида Гизы и <strong>Великий Сфинкс</strong> с лицом фараона.</div>
+</div>
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">👑 Джедефра</div>
+<div class="pharaoh-reign">Реформатор культа</div>
+<div class="pharaoh-desc">Солярный культ бога <strong>Ра</strong> становится государственным. Фараоны получают титул <strong>«Сын Ра»</strong>.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- V-VI Dynasties -->
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">📜</span>
+        V–VI династии и крах (~25–22 вв. до н.э.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event">
+<div class="event-date">V династия (~25 в. до н.э.)</div>
+<div class="event-title">Тексты пирамид и децентрализация</div>
+<div class="event-body">Масштаб пирамид уменьшается, появляются первые религиозные <strong>Тексты пирамид</strong>. Номархи строят богатые гробницы в провинциях. Торговля с Нубией (Ям) и <strong>Пунтом</strong> (Сомали).</div>
+</div>
+<div class="event">
+<div class="event-date">VI династия</div>
+<div class="event-title">Рекордное правление Пепи II — 94 года</div>
+<div class="event-body">Фараон <strong>Пепи II</strong> приходит к власти в 4 года и правит <strong>94 года</strong>. Титулы наместников становятся длиннее титулов самого фараона. Олигархия разрастается.</div>
+</div>
+<div class="event major has-thumb thumb-left">
+        <div class="event-content">
+<div class="event-date">~2200 г. до н.э.</div>
+<div class="event-title">⚠ Климатическая катастрофа — «Событие 4200 лет назад»</div>
+<div class="event-body">Жесточайшая засуха, <strong>Нил не разливается 7 лет</strong>. Номархи закрывают государственные амбары. Вторжения ливийцев, нубийцев и азиатов. Параллельно правят слабые VII–X династии. <strong>Египет погружается в хаос.</strong></div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-drought.jpg"/></div>
+      </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"><span class="divider-symbol">𓇋</span></div>
+<!-- ========== IV. MIDDLE KINGDOM ========== -->
+<section class="era-section era-middle" id="middle">
+<div class="era-header-illustrated fade-in">
+      <div class="era-bg-img" style="background-image: url('images/era-middle.jpg');"></div>
+<span class="era-number">IV</span>
+<div class="era-period">~2040 — 1650 гг. до н.э. • XI–XIII династии</div>
+<h2 class="era-title">Среднее царство</h2>
+<p class="era-desc">Возрождение из хаоса, золотой век XII династии и вторжение гиксосов</p>
+</div>
+
+    <div class="era-illustration fade-in">
+<img alt="Торговля и письменность Среднего царства" loading="lazy" src="images/era-middle.jpg"/>
+<div class="img-overlay">
+<div class="img-caption">Классический Египет</div>
+<div class="img-subcaption">Золотой век литературы, завоевание Нубии</div>
+</div>
+</div>
+<div class="accordion open fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">⚔</span>
+        XI династия — Объединение (~2040 г. до н.э.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event major">
+<div class="event-date">~1990 г. до н.э.</div>
+<div class="event-title">Ментухотеп объединяет Египет</div>
+<div class="event-body">Фиванский правитель <strong>Ментухотеп</strong> объединяет страну, разбив <strong>Гераклеополь</strong>. Создает личную гвардию из высоких воинов — около 60 из них похоронены вместе с ним.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion open fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🏰</span>
+        XII династия — Золотой век
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="pharaoh-grid">
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">👑 Аменемхет I</div>
+<div class="pharaoh-reign">Бывший визирь, основатель XII дин.</div>
+<div class="pharaoh-desc">Возобновил строительство пирамид (экономно — каркас из мусора). Крепость <strong>Бухен</strong> на 1-м пороге. Нубийские наемники. <strong>Убит в гаремном заговоре.</strong></div>
+</div>
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">👑 Сенусерт III</div>
+<div class="pharaoh-reign">Пик могущества Среднего царства</div>
+<div class="pharaoh-desc">Жесткая централизация: номархи обязаны жить при дворе. Статуи с <strong>оттопыренными ушами</strong> («все слышит»). Тактика выжженной земли в Куше. <strong>Египетский Лабиринт</strong> и <strong>Меридово море</strong>.</div>
+</div>
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">👑 Нефрусебек</div>
+<div class="pharaoh-reign">«Красивый крокодил»</div>
+<div class="pharaoh-desc">Первая полноценная <strong>женщина-фараон</strong> Египта. Правление неудачное и недолгое — конец великой XII династии.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🐎</span>
+        Вторжение гиксосов (~1650 г. до н.э.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="fact-card war">
+<span class="fact-icon">⚔</span>
+<div class="fact-content">
+<div class="fact-label">Технологический шок</div>
+<div class="fact-text"><strong>Гиксосы</strong> («хекау хасут») приносят боевые <strong>колесницы</strong>, <strong>лошадей</strong>, композитные луки, бронзовое литье и оружие <strong>хопеш</strong>. Город <strong>Аварис</strong> в Дельте — их столица (до 100 тыс. населения).</div>
+</div>
+</div>
+<div class="fact-card crisis">
+<span class="fact-icon">⚠</span>
+<div class="fact-content">
+<div class="fact-label">Египет в тисках</div>
+<div class="fact-text">Гиксосы с севера, <strong>кушиты</strong> с юга. Египет сжимается до района Фив. XVI–XVII династии — марионетки. <strong>Второй переходный период.</strong></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"><span class="divider-symbol">𓀀</span></div>
+<!-- ========== V. NEW KINGDOM ========== -->
+<section class="era-section era-new" id="new">
+<div class="era-header-illustrated fade-in">
+      <div class="era-bg-img" style="background-image: url('images/era-new.jpg');"></div>
+<span class="era-number">V</span>
+<div class="era-period">~1550 — 1070 гг. до н.э. • XVIII–XX династии</div>
+<h2 class="era-title">Новое царство</h2>
+<p class="era-desc">Величайшая эпоха Египта: от изгнания гиксосов до катастрофы бронзового века</p>
+</div>
+
+    <div class="era-illustration fade-in">
+<img alt="Новое царство — процессия у храма Карнак" loading="lazy" src="images/era-new.jpg"/>
+<div class="img-overlay">
+<div class="img-caption">Императорский Египет</div>
+<div class="img-subcaption">Хатшепсут, Тутмос III, Рамзес Великий</div>
+</div>
+</div>
+<div class="illustration-panel night-sky fade-in">
+<div class="panel-emoji">☄</div>
+<div class="panel-caption">Эпоха великих фараонов</div>
+<div class="panel-subcaption">Хатшепсут • Тутмос III • Эхнатон • Тутанхамон • Рамзес II</div>
+</div>
+<!-- XVIII Dynasty: Liberation -->
+<div class="accordion open fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🗡</span>
+        Изгнание гиксосов и XVIII династия (~1550-е гг.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event">
+<div class="event-date">~1560-е гг. до н.э.</div>
+<div class="event-title">Извержение Санторини</div>
+<div class="event-body">Климатические бедствия отражены как <strong>«казни египетские»</strong>. Фиванская династия использует это идеологически против гиксосов.</div>
+</div>
+<div class="event major">
+<div class="event-date">~1540–1530-е гг. до н.э.</div>
+<div class="event-title">Яхмос I — основание XVIII династии</div>
+<div class="event-body"><strong>Яхмос I</strong> берет Мемфис и столицу гиксосов <strong>Аварис</strong>, преследует их в Азию (3-летняя осада Шарухена). Покоряет Нубию до 4-го порога. Подробности — из гробницы морского пехотинца <strong>Яхмоса, сына Эбаны</strong>.</div>
+</div>
+<div class="event">
+<div class="event-date">Правление Тутмоса I</div>
+<div class="event-title">Рождение империи</div>
+<div class="event-body">Египет — мировая держава. Доходит до <strong>Евфрата</strong> («перевернутая вода»). Столкновение с <strong>Митанни</strong>. Визирь <strong>Инени</strong> создает <strong>Долину Царей</strong> под горой Аль-Курн. Возвышение культа <strong>Амона-Ра</strong>.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Hatshepsut -->
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🏛</span>
+        Хатшепсут — женщина-фараон (~1470–1458 гг.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event major has-thumb thumb-right">
+        <div class="event-content">
+<div class="event-date">7-й год правления Тутмоса III</div>
+<div class="event-title">Хатшепсут берет регалии фараона</div>
+<div class="event-body">Впервые используется слово <strong>«Фараон»</strong> (от «Пер-а» — «Большой дом»). Зодчий <strong>Сененмут</strong> строит храм <strong>Джесер-Джесеру</strong> в Дейр-эль-Бахри (100 сфинксов). 30-метровые гранитные обелиски.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-hatshepsut.jpg"/></div>
+      </div>
+<div class="event">
+<div class="event-date">Экспедиция в Пунт</div>
+<div class="event-title">Путешествие в Сомали</div>
+<div class="event-body">Привозят мирровые деревья, экзотических животных. Дипломатический контакт с местной принцессой.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Thutmose III & Amenhotep III -->
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🏆</span>
+        Тутмос III и Аменхотеп III — пик мощи
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="pharaoh-grid">
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">⚔ Тутмос III</div>
+<div class="pharaoh-reign">16 походов за 20 лет</div>
+<div class="pharaoh-desc"><strong>Битва при Мегиддо</strong> — разгром коалиции Митанни и Кадеша. Дань с Вавилона (лазурит), хеттов (серебро), железные ножи от микенских греков. «Ботанический сад» и охота на <strong>120 слонов</strong>.</div>
+</div>
+<div class="pharaoh-card">
+<div class="pharaoh-cartouche">☀ Аменхотеп III</div>
+<div class="pharaoh-reign">~1390–1353 гг. • 37 лет мира</div>
+<div class="pharaoh-desc"><strong>Колоссы Мемнона</strong>, <strong>Луксорский храм</strong>. Гарем: Гилухепа из Митанни, 317 дочерей Вавилона. Переписка с царем Тушраттой. Мумифицированная любимая кошка в отдельном саркофаге.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Akhenaten -->
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">☀</span>
+        Эхнатон — Амарнская революция (1353–1336 гг.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="fact-card religion">
+<span class="fact-icon">☀</span>
+<div class="fact-content">
+<div class="fact-label">Религиозная революция по годам</div>
+<div class="fact-text">
+<strong>3–4 год:</strong> Ра-Хорахте сливается с Атоном.<br/>
+<strong>5 год:</strong> Имена Амона и Ра удалены, остается только Атон.<br/>
+<strong>6 год:</strong> Новая столица — <strong>Ахетатон</strong> («Горизонт Атона»).<br/>
+<strong>7 год:</strong> Смена имени на <strong>Эхнатон</strong> («Полезный Атону»).<br/>
+<strong>9 год:</strong> Тотальное уничтожение надписей старых богов.<br/>
+<strong>12 год:</strong> Запрещено слово «боги» во множественном числе.
+              </div>
+</div>
+</div>
+<div class="fact-card culture">
+<span class="fact-icon">🎨</span>
+<div class="fact-content">
+<div class="fact-label">Амарнское искусство</div>
+<div class="fact-text">Вытянутые пропорции, любовная лирика, семейные сцены. Бюст <strong>Нефертити</strong> из мастерской скульптора Тутмоса-младшего. Египет теряет земли в Сирии из-за игнорирования внешней политики.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tutankhamun & Restoration -->
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🎭</span>
+        Тутанхамон и реставрация (~1332–1295 гг.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event has-thumb thumb-left">
+        <div class="event-content">
+<div class="event-date">~1332–1323 гг. до н.э.</div>
+<div class="event-title">Тутанхамон — мальчик-царь</div>
+<div class="event-body">Меняет имя с Тутанхатона на <strong>Тутанхамон</strong>, возвращает столицу в Мемфис, восстанавливает культ Амона-Ра. Правит 10 лет, умирает в 18 лет (малярия, травмы). В гробнице — нарды и мумия кошки.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-tut.jpg"/></div>
+      </div>
+<div class="event">
+<div class="event-date">Конец XVIII династии</div>
+<div class="event-title">Генерал Хоремхеб</div>
+<div class="event-body">Захватывает власть, уничтожает имена Эхнатона и Тутанхамона. Передает трон военному — <strong>Рамзесу I</strong>.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- XIX Dynasty: Ramesses -->
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🏰</span>
+        XIX династия — Рамзес II Великий (~1279–1213 гг.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="stats-bar">
+<div class="stat"><div class="stat-value">67</div><div class="stat-label">Лет правления</div></div>
+<div class="stat"><div class="stat-value">~150</div><div class="stat-label">Детей</div></div>
+<div class="stat"><div class="stat-value">84</div><div class="stat-label">Года жизни</div></div>
+<div class="stat"><div class="stat-value">20 000</div><div class="stat-label">Воинов при Кадеше</div></div>
+</div>
+<div class="timeline">
+<div class="event">
+<div class="event-date">Правление Сети I</div>
+<div class="event-title">Подготовка к величию</div>
+<div class="event-body">Храм в <strong>Абидосе</strong>, официальный список фараонов (вычеркнуты гиксосы, Хатшепсут, амарнские еретики). Начинает возвращать Азию.</div>
+</div>
+<div class="event major has-thumb thumb-right">
+        <div class="event-content">
+<div class="event-date">Май 1274 г. до н.э.</div>
+<div class="event-title">Битва при Кадеше</div>
+<div class="event-body">20 000 египтян и 2 500 колесниц против хеттов царя <strong>Муваталли II</strong>. Лошади Рамзеса — «Фиванская победа» и «Богиня Мут довольна». Битва заканчивается <strong>вничью</strong>. Позже — первый в истории <strong>мирный договор</strong> с хеттом <strong>Хаттусили III</strong>.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-kadesh.jpg"/></div>
+      </div>
+<div class="event has-thumb thumb-left">
+        <div class="event-content">
+<div class="event-date">Великие стройки</div>
+<div class="event-title">Абу-Симбел, Рамессеум, Пер-Рамзес</div>
+<div class="event-body">Храмы <strong>Абу-Симбел</strong>, <strong>Рамессеум</strong> (архитектор гипостильного зала — <strong>Минхеперрасенеб</strong>) и новая интернациональная столица в Дельте — <strong>Пер-Рамзес</strong>.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-abusimbel.jpg"/></div>
+      </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sea Peoples & Collapse -->
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🌊</span>
+        Народы моря и гибель Нового царства (~1200–1070 гг.)
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event">
+<div class="event-date">~1213–1201 гг. до н.э.</div>
+<div class="event-title">Мернептах и первая волна</div>
+<div class="event-body">Ливийцы под предводительством <strong>Деда и Мери</strong> с наемниками — народами моря (ахейцы, этруски, ликийцы, сардинцы, сицилийцы). На стеле — <strong>единственное упоминание Израиля</strong> в египетских источниках.</div>
+</div>
+<div class="event">
+<div class="event-date">~1200–1187 гг. до н.э.</div>
+<div class="event-title">15 лет гражданской войны</div>
+<div class="event-body">Хаос: <strong>Сети II, Аменмес, Саптах, Таусерт</strong> сменяют друг друга. Генерал <strong>Сетнахт</strong> основывает <strong>XX династию</strong>.</div>
+</div>
+<div class="event major has-thumb thumb-right">
+        <div class="event-content">
+<div class="event-date">1179 г. до н.э.</div>
+<div class="event-title">Рамзес III останавливает народы моря</div>
+<div class="event-body">Вторая волна: филистимляне, троянцы, данайцы. <strong>«Битва на воде»</strong> — египетский флот расстрелял транспортные баржи из луков.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-seapeoples.jpg"/></div>
+      </div>
+<div class="event">
+<div class="event-date">1159 г. до н.э.</div>
+<div class="event-title">Первая в истории забастовка рабочих</div>
+<div class="event-body">Строители Долины Царей отказываются работать — <strong>два месяца без зарплаты</strong>. Рамзес III позже убит в гаремном заговоре (перерезано горло).</div>
+</div>
+<div class="event major">
+<div class="event-date">1091 г. до н.э.</div>
+<div class="event-title">Конец Нового царства</div>
+<div class="event-body">Жрецы Амона отделяются. Генерал <strong>Херихор</strong> — фараон юга. <strong>Смендес</strong> — фараон севера. Мумии великих царей спешно вывозят в тайники <strong>Дейр-эль-Бахри</strong>.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"><span class="divider-symbol">𓁠</span></div>
+<!-- ========== VI. THIRD INTERMEDIATE ========== -->
+<section class="era-section era-third" id="third">
+<div class="era-header-illustrated fade-in">
+      <div class="era-bg-img" style="background-image: url('images/era-third.jpg');"></div>
+<span class="era-number">VI</span>
+<div class="era-period">XI — VIII вв. до н.э. • XXI–XXIV династии</div>
+<h2 class="era-title">Третий переходный период</h2>
+<p class="era-desc">Распад государства, ливийские фараоны и утрата влияния</p>
+</div>
+
+    <div class="era-illustration fade-in">
+<img alt="Третий переходный период" loading="lazy" src="images/era-third.jpg"/>
+<div class="img-overlay">
+<div class="img-caption">Раздробленность</div>
+<div class="img-subcaption">Жрецы Амона, ливийские и нубийские династии</div>
+</div>
+</div>
+<div class="timeline">
+<div class="event fade-in">
+<div class="event-date">XXI династия</div>
+<div class="event-title">Столица в Танисе</div>
+<div class="event-body">Храмы <strong>Пер-Рамзеса</strong> разбирают на стройматериалы. Фараон <strong>Псусеннес I</strong> хоронит себя в саркофаге Мернептаха. Жрец <strong>Пинеджем</strong> прячет царские мумии в тайниках.</div>
+</div>
+<div class="event fade-in">
+<div class="event-date">X в. до н.э.</div>
+<div class="event-title">Путешествие жреца Уну-Амона</div>
+<div class="event-body">Жрец отправлен в <strong>Библ</strong> (Ливан) за кедром. Ограблен в городе Дор, правитель Библа отказывается давать дерево без предоплаты. <strong>Полная утрата международного авторитета.</strong></div>
+</div>
+<div class="event major fade-in">
+<div class="event-date">~925 г. до н.э.</div>
+<div class="event-title">Шешонк I (Сусаким) — XXII ливийская династия</div>
+<div class="event-body">Вождь ливийцев <strong>мешвеш</strong> объединяет Египет. Первый за 150 лет зарубежный поход — вторгается в <strong>Иудею</strong>, забирает сокровища Иерусалимского храма. <strong>156 разграбленных поселений</strong> выбиты на портале в Бубастисе.</div>
+</div>
+</div>
+</section>
+<div class="divider"><span class="divider-symbol">𓀜</span></div>
+<!-- ========== VII. LATE PERIOD ========== -->
+<section class="era-section era-late" id="late">
+<div class="era-header-illustrated fade-in">
+      <div class="era-bg-img" style="background-image: url('images/era-late.jpg');"></div>
+<span class="era-number">VII</span>
+<div class="era-period">VIII — IV вв. до н.э. • XXV–XXXI династии</div>
+<h2 class="era-title">Позднее царство</h2>
+<p class="era-desc">Кушиты, ассирийцы, персы — Египет под иностранной властью</p>
+</div>
+
+    <div class="era-illustration fade-in">
+<img alt="Персидское завоевание Египта" loading="lazy" src="images/era-late.jpg"/>
+<div class="img-overlay">
+<div class="img-caption">Под чужой властью</div>
+<div class="img-subcaption">Ассирийцы, персы, последние египетские фараоны</div>
+</div>
+</div>
+<div class="accordion open fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🏴</span>
+        XXV (Кушитская) династия
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event">
+<div class="event-date">~750 г. до н.э.</div>
+<div class="event-title">Кушитский царь Кашта</div>
+<div class="event-body">Принимает титул «правитель Верхнего и Нижнего Египта». Его преемник <strong>Пианхи (Пи)</strong> вторгается, чтобы «восстановить маат». Кушиты строят пирамиды в <strong>Напате</strong>, пишут на классическом среднеегипетском.</div>
+</div>
+<div class="event">
+<div class="event-date">Правление Шабаки и Тахарки</div>
+<div class="event-title">Нубийское возрождение</div>
+<div class="event-body"><strong>Шабака</strong> переносит мемфисскую теологию на <strong>Камень Шабаки</strong>. <strong>Тахарка</strong> строит киоск в Карнаке и сфинксов со своим лицом.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="accordion fade-in">
+<button class="accordion-trigger" onclick="toggleAccordion(this)">
+<span class="accordion-icon">🗡</span>
+        Ассирия, Саисская династия и Персия
+        <span class="accordion-arrow">▼</span>
+</button>
+<div class="accordion-content">
+<div class="accordion-inner">
+<div class="timeline">
+<div class="event">
+<div class="event-date">VII в. до н.э.</div>
+<div class="event-title">Ассирийское вторжение</div>
+<div class="event-body"><strong>Асархаддон</strong> и <strong>Ашшурбанипал</strong> громят кушитов, разоряют Фивы. Наместником ставят <strong>Нехо I</strong> из Саиса.</div>
+</div>
+<div class="event major">
+<div class="event-date">664 г. до н.э.</div>
+<div class="event-title">Псамметих I — XXVI (Саисская) династия</div>
+<div class="event-body">Объединяет Египет с помощью <strong>греческих, карийских и финикийских наемников</strong>. Сбрасывает ассирийское владычество.</div>
+</div>
+<div class="event">
+<div class="event-date">Правление Нехо II</div>
+<div class="event-title">Канал, флот и кругосветка</div>
+<div class="event-body">Первый военный флот, канал <strong>Нил–Красное море</strong>. По Геродоту — финикийская экспедиция <strong>вокруг Африки</strong>.</div>
+</div>
+<div class="event">
+<div class="event-date">525 г. до н.э.</div>
+<div class="event-title">Персидское завоевание</div>
+<div class="event-body"><strong>Камбис II</strong> завоевывает Египет. XXVII династия — персидская.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="divider"><span class="divider-symbol">𓅱</span></div>
+<!-- ========== VIII. PTOLEMAIC ========== -->
+<section class="era-section era-ptolemaic" id="ptolemaic">
+<div class="era-header-illustrated fade-in">
+      <div class="era-bg-img" style="background-image: url('images/era-ptolemaic.jpg');"></div>
+<span class="era-number">VIII</span>
+<div class="era-period">332 — 30 гг. до н.э.</div>
+<h2 class="era-title">Эллинистический Египет</h2>
+<p class="era-desc">Александр Македонский, Птолемеи и Клеопатра — финал великой цивилизации</p>
+</div>
+
+    <div class="era-illustration fade-in">
+<img alt="Клеопатра и Александрия" loading="lazy" src="images/era-ptolemaic.jpg"/>
+<div class="img-overlay">
+<div class="img-caption">Эллинистический Египет</div>
+<div class="img-subcaption">Птолемеи, Клеопатра, конец великой цивилизации</div>
+</div>
+</div>
+<div class="timeline">
+<div class="event major fade-in has-thumb thumb-left">
+        <div class="event-content">
+<div class="event-date">332 г. до н.э.</div>
+<div class="event-title">Александр Македонский покоряет Египет</div>
+<div class="event-body">Без боя входит в Египет, встречен как <strong>освободитель от персов</strong>. Оракул в оазисе <strong>Сива</strong> объявляет его сыном бога Амона. Основывает <strong>Александрию</strong>.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-alexander.jpg"/></div>
+      </div>
+<div class="event fade-in">
+<div class="event-date">323 г. до н.э.</div>
+<div class="event-title">Начало эпохи Птолемеев</div>
+<div class="event-body">После смерти Александра Египет достается генералу <strong>Птолемею I Сотеру</strong>. Для греков — цари, для египтян — фараоны. Двойная идентичность зафиксирована на <strong>Розеттском камне</strong>.</div>
+</div>
+<div class="event major fade-in has-thumb thumb-right">
+        <div class="event-content">
+<div class="event-date">30 г. до н.э.</div>
+<div class="event-title">Клеопатра VII — конец Древнего Египта</div>
+<div class="event-body">Около 250 лет правления Птолемеев завершаются при <strong>Клеопатре VII</strong>. Египет окончательно поглощен <strong>Римской империей</strong>. Одна из величайших цивилизаций в истории человечества уходит в вечность.</div>
+</div>
+        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-cleopatra.jpg"/></div>
+      </div>
+</div>
+<div class="era-illustration fade-in" style="margin-top: 2rem;">
+<img alt="Конец эпохи — Египет под властью Рима" loading="lazy" src="images/finale.jpg"/>
+<div class="img-overlay" style="text-align: center; padding: 3rem 1.5rem 2rem;">
+<div class="img-caption" style="font-size: 1.5rem; margin-bottom: 0.5rem;">Конец Эпохи</div>
+<div class="img-subcaption" style="font-size: 0.95rem;">~12 000 лет истории • 31 династия • Одна из величайших цивилизаций человечества уходит в вечность</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+<div class="footer-hieroglyphs">𓀀 𓀜 𓁠 𓂸 𓅱 𓇋 𓀀</div>
+<p>Таймлайн составлен по материалам YouTube-канала</p>
+<p class="source">Bushwacker</p>
+<p style="margin-top: 0.8rem; opacity: 0.5; font-size: 0.75rem;">6 источников • NotebookLM • 2026</p>
+<p style="margin-top: 0.5rem; opacity: 0.4; font-size: 0.7rem;"><a href="https://www.perplexity.ai/computer" rel="noopener noreferrer" style="color: var(--gold-dark); text-decoration: none;" target="_blank">Created with Perplexity Computer</a></p></footer>
+<script>
+  // Accordion toggle
+  function toggleAccordion(btn) {
+    const accordion = btn.closest('.accordion');
+    accordion.classList.toggle('open');
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Active nav highlighting
+  const sections = document.querySelectorAll('.era-section');
+  const navLinks = document.querySelectorAll('.nav-bar a');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const id = entry.target.id;
+        const activeLink = document.querySelector(`.nav-bar a[href="#${id}"]`);
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => navObserver.observe(s));
+
+  // Register Service Worker for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      console.log('SW registered:', reg.scope);
+    }).catch(err => {
+      console.log('SW registration failed:', err);
+    });
+  }
+</script>
+</body>
+</html>
