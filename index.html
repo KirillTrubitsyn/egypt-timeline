@@ -5,14 +5,14 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
 <title>Древний Египет — Полный таймлайн</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#C9A84C">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Древний Египет">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="description" content="Интерактивный таймлайн цивилизации Древнего Египта — от первых охотников до завоевания Римом">
+<link href="manifest.json" rel="manifest"/>
+<meta content="#C9A84C" name="theme-color"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="Древний Египет" name="apple-mobile-web-app-title"/>
+<link href="icons/apple-touch-icon.png" rel="apple-touch-icon"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="Интерактивный таймлайн цивилизации Древнего Египта — от первых охотников до завоевания Римом" name="description"/>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap');
 
@@ -1057,7 +1057,91 @@
     opacity: 0.4;
   }
 
-  </style>
+  
+
+  /* ===== DETAIL ACCORDION (within events) ===== */
+  .detail-accordion {
+    margin-top: 0.8rem;
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(242,232,213,0.3);
+  }
+
+  .detail-accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.9rem;
+    border: none;
+    background: rgba(201,168,76,0.08);
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--lapis);
+    transition: background 0.3s;
+  }
+
+  .detail-accordion-trigger:hover {
+    background: rgba(201,168,76,0.15);
+  }
+
+  .detail-accordion-trigger .detail-arrow {
+    margin-left: auto;
+    font-size: 0.65rem;
+    color: var(--gold-dark);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .detail-accordion.open .detail-arrow {
+    transform: rotate(180deg);
+  }
+
+  .detail-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .detail-accordion.open .detail-accordion-content {
+    max-height: 3000px;
+  }
+
+  .detail-accordion-inner {
+    padding: 0.6rem 0.9rem 0.8rem;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--text-light);
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .significance-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold-dark);
+  }
+
+  .significance-badge.high {
+    background: rgba(196,69,54,0.12);
+    color: var(--red-ochre);
+  }
+
+  .significance-badge.medium {
+    background: rgba(48,168,158,0.12);
+    color: var(--turquoise);
+  }
+</style>
 </head>
 <body>
 <!-- ===== HERO ===== -->
@@ -1101,14 +1185,13 @@
 <!-- ========== I. DODYNASTIC ========== -->
 <section class="era-section era-predynastic" id="predynastic">
 <div class="era-header-illustrated fade-in">
-      <div class="era-bg-img" style="background-image: url('images/era-predynastic.jpg');"></div>
+<div class="era-bg-img" style="background-image: url('images/era-predynastic.jpg');"></div>
 <span class="era-number">I</span>
 <div class="era-period">~12 000 — 3100 гг. до н.э.</div>
 <h2 class="era-title">Додинастический период</h2>
 <p class="era-desc">От зеленой Сахары до объединения Двух Земель под властью Нармера</p>
 </div>
-
-    <div class="era-illustration fade-in">
+<div class="era-illustration fade-in">
 <img alt="Зеленая Сахара — ранние поселения у Нила" loading="lazy" src="images/era-predynastic.jpg"/>
 <div class="img-overlay">
 <div class="img-caption">Зеленая Сахара</div>
@@ -1124,65 +1207,144 @@
 <div class="event fade-in">
 <div class="event-date">~12 000 – 13 000 лет назад</div>
 <div class="event-title">Конец ледникового периода</div>
-<div class="event-body">Сахара представляет собой обильную <strong>саванну</strong> с большим количеством рек и африканской мегафауной. Люди ведут образ жизни охотников и собирателей.</div>
+<div class="event-body">После окончания ледникового периода (около 12–13 тысяч лет назад) климат в Северной Африке стал тёплым и влажным. <strong>Сахара</strong> представляла собой богатую саванну, где водились слоны, жирафы и гиппопотамы. Люди вели образ жизни <strong>охотников-собирателей</strong>, приручили дикого быка (тура) и собирали дикорастущие злаки. Нил в это время был бурным потоком без дельты, и жить на его берегах было опасно.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Создание благоприятной среды (богатая фауна и флора) для накопления первоначального человеческого капитала в Северной Африке без жёсткой привязки к реке.<div class="significance-badge">Значимость: 5/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event fade-in has-thumb thumb-right">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">~6000 г. до н.э.</div>
 <div class="event-title">Зарождение земледелия и астрономии</div>
-<div class="event-body">Примитивное земледелие на территории будущего Египта. В верховьях Нила появляются первые мегалитические комплексы, такие как <strong>Набта-Плая</strong>, камни в которых выстраивались по звезде <strong>Сириус</strong>.</div>
+<div class="event-body">В районе <strong>Набта-Плая</strong> (сегодня абсолютно мёртвая пустыня) племена создали первые <strong>мегалитические комплексы</strong>. Камни были выстроены так, чтобы ориентироваться на звезду <strong>Сириус</strong> — это свидетельствует о зарождении интереса к наблюдению за звёздным небом, что впоследствии станет основой египетского календаря и сложной космологии.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Зарождение у племён систематического наблюдения за звёздным небом. Появление Сириуса будет предвещать разлив Нила — основу египетского календаря.<div class="significance-badge medium">★ Значимость: 7/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-nabta.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-nabta.jpg"/></div>
+</div>
 <div class="event fade-in">
 <div class="event-date">~5000 г. до н.э.</div>
 <div class="event-title">Культура Меримде</div>
-<div class="event-body">Из Месопотамии проникают передовые технологии: выращивание <strong>ячменя и пшеницы</strong>, одомашнивание овец, коз и уток. Зарождается традиция египетского <strong>пивоварения</strong> из проросшего ячменя.</div>
+<div class="event-body">Из-за таяния ледников уровень Средиземного моря поднялся, образовалась заболоченная <strong>Дельта</strong> (Нижний Египет), где массово рос папирус. В Египет проникают передовые технологии с <strong>Ближнего Востока</strong>: одомашнивание коз, овец, уток, выращивание <strong>ячменя</strong>. Представители культуры Меримде жили просто: хоронили мёртвых прямо в поселениях, практиковали тотемизм. Из проросшего ячменя египтяне изобрели <strong>пиво</strong>, став первыми массовыми пивоварами древности.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Переход от простого собирательства к производящему хозяйству и животноводству. Интеграция ближневосточных технологий заложила фундамент для демографического роста.<div class="significance-badge medium">★ Значимость: 8/10</div>
 </div>
-<div class="event fade-in">
+</div>
+</div>
+</div>
+<div class="event fade-in major">
 <div class="event-date">~4000 – 3800 гг. до н.э.</div>
 <div class="event-title">Культура Бадари</div>
-<div class="event-body">Из-за <strong>высыхания Сахары</strong> люди концентрируются в долине Нила. Появляются тростниковые лодки и первые корабельные «ватаги». Формируется представление о <strong>Западе как стране мертвых</strong> — умерших хоронят лицом на запад.</div>
+<div class="event-body">Около 4500–4000 гг. до н.э. саванна стремительно пересыхала, превращаясь в <strong>пустыню Сахару</strong>. Люди были вынуждены массово мигрировать в долину <strong>Нила</strong>. Резкое увеличение плотности населения заставило перейти к <strong>интенсивному земледелию</strong>. В Верхнем Египте расцветает <strong>культура Бадари</strong> (ок. 4200 г. до н.э.), известная красивой двухцветной керамикой — терракотовой с обожжённым чёрным краем.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Экологическая катастрофа стала главным толчком к развитию египетской цивилизации. Люди навсегда привязались к Нилу, началось социальное расслоение и быстрое технологическое развитие.<div class="significance-badge high">⚡ Значимость: 9/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event fade-in">
 <div class="event-date">~3600 – 3500 гг. до н.э.</div>
 <div class="event-title">Амратская культура</div>
-<div class="event-body">Активная торговля через Синай: <strong>медь</strong> и <strong>лазурит</strong> (из Афганистана). Влияние шумеров — знаменитый <strong>нож из Джебель эль-Арак</strong> с шумерскими мотивами. Социальное расслоение: богатые захоронения с рабами-карликами из Нубии.</div>
+<div class="event-body">Египтяне активно строят лодки из камыша и дерева, судоходство становится основой жизни. <strong>Амратская культура</strong> (ок. 3500 г. до н.э.) демонстрирует невероятный уровень торговли: в Египет завозят <strong>медь</strong> с Синайского полуострова, <strong>кедр</strong> из Ливана, косметику и даже <strong>лазурит из Афганистана</strong> через сложную цепочку посредников. Из <strong>Нубии</strong> начинают привозить золото и карликов.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Лодочные флотилии стали инструментом войны и торговли. Выделилась элита — командиры лодочных ватаг, способная аккумулировать богатства из других регионов.<div class="significance-badge medium">★ Значимость: 8/10</div>
 </div>
-<div class="event fade-in">
+</div>
+</div>
+</div>
+<div class="event fade-in major">
 <div class="event-date">~3500 – 3400 гг. до н.э.</div>
 <div class="event-title">Герзейская культура и система номов</div>
-<div class="event-body">Развивается система <strong>номов</strong> — деревень вокруг культовых центров: <strong>Иераконполь (Нехен)</strong>, <strong>Тинис</strong>, <strong>Дендера</strong>. Формируется Иераконпольская девятка богов и концепция космического порядка <strong>Маат</strong>.</div>
+<div class="event-body"><strong>Герзейская культура</strong> — этап, когда вдоль всего Нила возникла невероятная плотность поселений. Инновации распространялись по реке практически мгновенно. Формируется уникальная система <strong>номов</strong> — объединений из нескольких деревень с культовым и торговым центром (протогородом). В отличие от Месопотамии, крупнейшие центры — <strong>Иераконполь</strong> (центр культа сокола-Хора) и <strong>Тинис</strong> — вмещали лишь 5–10 тысяч человек.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Формирование административно-территориальной структуры номов, которая просуществует тысячи лет. Возникновение крупных культовых центров породило развитую мифологию (миф об убитом и воскресшем Осирисе), что заложило основы мумификации и веры в загробную жизнь.<div class="significance-badge high">⚡ Значимость: 10/10</div>
 </div>
-<div class="event fade-in">
+</div>
+</div>
+</div>
+<div class="event fade-in major">
 <div class="event-date">Середина IV тыс. до н.э.</div>
 <div class="event-title">Эпоха первых вождей («Династии 00 и 0»)</div>
-<div class="event-body">Вожди берут тотемные имена: <strong>Хор Скорпион</strong> (Тинис), <strong>Хор Боец</strong>, <strong>Хор Хватала</strong>. Ожесточенные войны между номами. Общество делится на воинов <em>хенемет</em> («солнечный народ») и рабов <em>рехи</em> (символ — сокол со сломанным крылом).</div>
+<div class="event-body">Из номов выделяются мощные правители, ассоциирующие себя с <strong>Хором</strong> (соколом). Появляются цари с боевыми именами: <strong>Хор-Скорпион</strong>, <strong>Хор-Боец</strong>, <strong>Хор-Хватала</strong>. Начинаются постоянные войны между центрами. К 32-му веку до н.э. окончательно оформляется <strong>египетская письменность</strong> — появляются «серехи» (штандарты с именами правителей).</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Идеологическое обоснование власти: цари начинают восприниматься как воплощения бога, несущие космический порядок (Маат) и устраняющие первозданный хаос. Появляется рабовладение, классы общества и сложные царские гробницы.<div class="significance-badge high">⚡ Значимость: 9/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event major fade-in has-thumb thumb-left">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">~3100 г. до н.э.</div>
 <div class="event-title">👑 Объединение Египта. Царь Нармер</div>
 <div class="event-body">
 <strong>Нармер</strong> («Свирепый сом») объединяет Верхний и Нижний Египет. На <strong>Палетке Нармера</strong> он изображен в коронах обоих царств. Захвачено <strong>120 000 пленных</strong>. Его сын <strong>Менес</strong> — основатель I династии по Манефону. Внук <strong>Хор Аха</strong> завершает покорение Нижнего Египта.
-        </div>
+        </div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Финал додинастического периода: правитель Нармер («Свирепый сом») на знаменитой Палетке изображён пробивающим голову врагу булавой — символ объединения Верхнего и Нижнего Египта под единой властью.<div class="significance-badge high">⚡ Значимость: 10/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-narmer.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-narmer.jpg"/></div>
+</div>
 </div>
 </section>
 <div class="divider"><span class="divider-symbol">𓂭</span></div>
 <!-- ========== II. EARLY KINGDOM ========== -->
 <section class="era-section era-early" id="early">
 <div class="era-header-illustrated fade-in">
-      <div class="era-bg-img" style="background-image: url('images/era-early.jpg');"></div>
+<div class="era-bg-img" style="background-image: url('images/era-early.jpg');"></div>
 <span class="era-number">II</span>
 <div class="era-period">~3000 — 2650 гг. до н.э. • I–II династии</div>
 <h2 class="era-title">Раннее царство</h2>
 <p class="era-desc">Первые династии, мастабы и человеческие жертвоприношения</p>
 </div>
-
-    <div class="era-illustration fade-in">
+<div class="era-illustration fade-in">
 <img alt="Объединение Верхнего и Нижнего Египта" loading="lazy" src="images/era-early.jpg"/>
 <div class="img-overlay">
 <div class="img-caption">Объединение Двух Земель</div>
@@ -1193,7 +1355,17 @@
 <div class="event fade-in">
 <div class="event-date">I династия (8 царей)</div>
 <div class="event-title">Строительство мастаб и ритуальные жертвоприношения</div>
-<div class="event-body">Массовые человеческие жертвоприношения: в гробнице <strong>Хора Джера</strong> найдено <strong>318 тел</strong> приближенных и слуг, задушенных в расцвете сил. <strong>Мернейт</strong> — первая женщина-правительница (регент при малолетнем <strong>Хоре Дене</strong>).</div>
+<div class="event-body">Во времена I династии практиковались массовые <strong>человеческие жертвоприношения</strong>: в гробнице фараона (предположительно Джера) найдено <strong>318 тел</strong> приближённых, задушенных в расцвете сил (~24–25 лет). Идеология предполагала, что слуги должны сопровождать двойника фараона (<strong>Ка</strong>) в загробный мир. Со II династии практика <strong>навсегда прекращается</strong> — убийство всего управленческого аппарата оказалось нерациональным. К концу II династии появляются <strong>мастабы</strong> с «ложными дверями» для прохода Ка в духовный мир.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Смерть практики жертвоприношений подтолкнула к замене реальных людей магическими изображениями и статуэтками, что стимулировало развитие искусства. Мастабы стали архитектурной основой для будущих пирамид.<div class="significance-badge medium">★ Значимость: 7/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event fade-in">
 <div class="event-date">~2850 г. до н.э.</div>
@@ -1211,14 +1383,13 @@
 <!-- ========== III. OLD KINGDOM ========== -->
 <section class="era-section era-old" id="old">
 <div class="era-header-illustrated fade-in">
-      <div class="era-bg-img" style="background-image: url('images/era-old.jpg');"></div>
+<div class="era-bg-img" style="background-image: url('images/era-old.jpg');"></div>
 <span class="era-number">III</span>
 <div class="era-period">~2650 — 2150 гг. до н.э. • III–VI династии</div>
 <h2 class="era-title">Древнее (Старое) царство</h2>
 <p class="era-desc">Эпоха великих пирамид, от Джосера до Пепи II</p>
 </div>
-
-    <div class="era-illustration fade-in">
+<div class="era-illustration fade-in">
 <img alt="Строительство Великой пирамиды" loading="lazy" src="images/era-old.jpg"/>
 <div class="img-overlay">
 <div class="img-caption">Эпоха пирамид</div>
@@ -1261,13 +1432,23 @@
 <div class="accordion-inner">
 <div class="timeline">
 <div class="event major has-thumb thumb-right">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">~2650–2625 гг. до н.э.</div>
 <div class="event-title">Фараон Джосер и архитектор Имхотеп</div>
-<div class="event-body">Столица переносится в <strong>Мемфис</strong>. Визирь <strong>Имхотеп</strong> ставит шесть мастаб друг на друга и возводит <strong>первую Ступенчатую пирамиду в Саккаре</strong> — революция в зодчестве. Последний фараон династии <strong>Хуни</strong> начинает строительство в Мейдуме.</div>
+<div class="event-body">Фараон <strong>Джосер</strong> окончательно переносит столицу в <strong>Мемфис</strong> для удобства логистики и контроля. При нём появляется должность визиря, которую занимает <strong>Имхотеп</strong> — первый в истории простолюдин, чьё имя сохранилось в веках. Имхотеп решил поставить одну мастабу на другую, а затем ещё и ещё, построив <strong>первую Ступенчатую пирамиду</strong> в Саккаре.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Ступенчатая пирамида стала колоссальным прорывом в монументальном строительстве, потребовавшим создания совершенно новой государственной логистики, что неимоверно укрепило авторитет царской власти. Сам Имхотеп впоследствии был обожествлён.<div class="significance-badge high">⚡ Значимость: 9/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-djoser.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-djoser.jpg"/></div>
+</div>
 </div>
 </div>
 </div>
@@ -1285,22 +1466,32 @@
 <div class="pharaoh-card">
 <div class="pharaoh-cartouche">👑 Снофру</div>
 <div class="pharaoh-reign">Основатель IV династии</div>
-<div class="pharaoh-desc">Реформа налогов, 122 скотоводческих хозяйства, 35 каменоломен. Построил <strong>3 пирамиды</strong>: Мейдум, <strong>Ломаную</strong> (угол изменен с 54° до 43°) и первую правильную <strong>Розовую пирамиду</strong>.</div>
+<div class="pharaoh-desc">Изменил систему налогов на основе <strong>ниломеров</strong>: налоги и трудовая повинность зависели от уровня разлива реки. Создал множество скотоводческих хозяйств. Его <strong>Ломаная пирамида</strong> начала обрушаться внутрь (угол изменён с 54° до 43°). Рядом построил идеальную <strong>Розовую пирамиду</strong>. По объёму перетасканного камня превзошёл всех последующих фараонов.</div>
 </div>
 <div class="pharaoh-card">
 <div class="pharaoh-cartouche">👑 Хуфу (Хеопс)</div>
 <div class="pharaoh-reign">Строитель Великой пирамиды</div>
-<div class="pharaoh-desc">С архитектором <strong>Хемиуном</strong> возвел <strong>Великую пирамиду Гизы</strong> из блоков до 68 тонн. Рабочий город на 4 000 жителей + 10–15 тыс. сезонных рабочих.</div>
+<div class="pharaoh-desc">Возвёл <strong>Великую пирамиду Гизы</strong> — единственное сохранившееся чудо света. Стройку осуществляли не рабы, а <strong>свободные высококвалифицированные рабочие</strong> (~10–15 тыс. сезонников и 4 тыс. постоянных жителей), которым платили мясом, пивом и хлебом. Стройка обосновывалась концепцией <strong>Маат</strong> — идеей космического порядка.</div>
 </div>
 <div class="pharaoh-card">
 <div class="pharaoh-cartouche">👑 Хафра (Хефрен)</div>
 <div class="pharaoh-reign">Строитель Сфинкса</div>
-<div class="pharaoh-desc">Вторая гигантская пирамида Гизы и <strong>Великий Сфинкс</strong> с лицом фараона.</div>
+<div class="pharaoh-desc">Построил вторую пирамиду в Гизе (кажется выше отцовской благодаря возвышенности) и создал <strong>Большого Сфинкса</strong> со своим лицом. Культ бога солнца <strong>Ра</strong> приобретает статус государственного, вытесняя старых богов-творцов.</div>
 </div>
 <div class="pharaoh-card">
 <div class="pharaoh-cartouche">👑 Джедефра</div>
 <div class="pharaoh-reign">Реформатор культа</div>
 <div class="pharaoh-desc">Солярный культ бога <strong>Ра</strong> становится государственным. Фараоны получают титул <strong>«Сын Ра»</strong>.</div>
+</div>
+</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Вершина централизации египетского государства: создание идеальной логистической машины (включая работу портов на Красном море) и единственного сохранившегося до наших дней чуда света. Сложение классического египетского пантеона — фараон стал прямым потомком солнца.<div class="significance-badge high">⚡ Значимость: 10/10</div>
+</div>
 </div>
 </div>
 </div>
@@ -1319,21 +1510,41 @@
 <div class="event">
 <div class="event-date">V династия (~25 в. до н.э.)</div>
 <div class="event-title">Тексты пирамид и децентрализация</div>
-<div class="event-body">Масштаб пирамид уменьшается, появляются первые религиозные <strong>Тексты пирамид</strong>. Номархи строят богатые гробницы в провинциях. Торговля с Нубией (Ям) и <strong>Пунтом</strong> (Сомали).</div>
+<div class="event-body">К V династии гигантские стройки прекращаются: пирамиды мельчают из-за истощения каменоломен, акцент смещается на <strong>солнечные храмы</strong>. Государственная власть расползается: чиновники и <strong>номархи</strong> богатеют, строят собственные роскошные гробницы. Внутри царских пирамид впервые вырезают <strong>Тексты пирамид</strong> — заклинания и гимны с поразительными сюжетами (вроде «Каннибальского гимна», где фараон пожирает богов ради их магии).</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Формирование классической египетской религии, заупокойных текстов и изобразительного искусства. Начало децентрализации и потери фараоном абсолютного божественного статуса в пользу усиливающейся бюрократии.<div class="significance-badge medium">★ Значимость: 8/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event">
 <div class="event-date">VI династия</div>
 <div class="event-title">Рекордное правление Пепи II — 94 года</div>
-<div class="event-body">Фараон <strong>Пепи II</strong> приходит к власти в 4 года и правит <strong>94 года</strong>. Титулы наместников становятся длиннее титулов самого фараона. Олигархия разрастается.</div>
+<div class="event-body">Фараон <strong>Пепи II</strong> приходит к власти в 4 года и правит <strong>94 года</strong> (около 67 лет по документированным источникам). Египетская олигархия и бюрократия разрастаются до опасных масштабов: титулатура местных номархов и визирей стала длиннее, чем у самого царя.</div>
 </div>
 <div class="event major has-thumb thumb-left">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">~2200 г. до н.э.</div>
 <div class="event-title">⚠ Климатическая катастрофа — «Событие 4200 лет назад»</div>
-<div class="event-body">Жесточайшая засуха, <strong>Нил не разливается 7 лет</strong>. Номархи закрывают государственные амбары. Вторжения ливийцев, нубийцев и азиатов. Параллельно правят слабые VII–X династии. <strong>Египет погружается в хаос.</strong></div>
+<div class="event-body">Конец Древнему царству положил климатический сдвиг — <strong>«событие 4200 лет назад»</strong>. Глобальное совпадение климатических циклов вызвало катастрофическую засуху: <strong>Нил не разливался 7 лет подряд</strong>. Номархи отказались подчиняться мемфисскому центру: вместо раздачи государственного зерна народу, они заперли амбары и стали кормить лишь свои личные вооружённые дружины.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Единое государство рухнуло, логистика и транспортные связи исчезли, началось массовое разграбление некрополей и пирамид. Столица Мемфис была заброшена навсегда, а Египет погрузился в эпоху хаоса и гражданских войн (Первый переходный период).<div class="significance-badge high">⚡ Значимость: 10/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-drought.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-drought.jpg"/></div>
+</div>
 </div>
 </div>
 </div>
@@ -1343,14 +1554,13 @@
 <!-- ========== IV. MIDDLE KINGDOM ========== -->
 <section class="era-section era-middle" id="middle">
 <div class="era-header-illustrated fade-in">
-      <div class="era-bg-img" style="background-image: url('images/era-middle.jpg');"></div>
+<div class="era-bg-img" style="background-image: url('images/era-middle.jpg');"></div>
 <span class="era-number">IV</span>
 <div class="era-period">~2040 — 1650 гг. до н.э. • XI–XIII династии</div>
 <h2 class="era-title">Среднее царство</h2>
 <p class="era-desc">Возрождение из хаоса, золотой век XII династии и вторжение гиксосов</p>
 </div>
-
-    <div class="era-illustration fade-in">
+<div class="era-illustration fade-in">
 <img alt="Торговля и письменность Среднего царства" loading="lazy" src="images/era-middle.jpg"/>
 <div class="img-overlay">
 <div class="img-caption">Классический Египет</div>
@@ -1370,6 +1580,91 @@
 <div class="event-date">~1990 г. до н.э.</div>
 <div class="event-title">Ментухотеп объединяет Египет</div>
 <div class="event-body">Фиванский правитель <strong>Ментухотеп</strong> объединяет страну, разбив <strong>Гераклеополь</strong>. Создает личную гвардию из высоких воинов — около 60 из них похоронены вместе с ним.</div>
+</div><div class="event fade-in">
+<div class="event-content">
+<div class="event-date"></div>
+<div class="event-title">Аменемхет I</div>
+<div class="event-body"><strong>Аменемхет I</strong> изначально был визирем, руководившим добычей камня, но совершил переворот и основал великую <strong>XII династию</strong>. Он возобновил строительство пирамид — однако из мусора и щебня, облицовывая камнем, выломанным из пирамид Древнего царства. Нанимал <strong>нубийцев-лучников</strong>, предварительно сжигая их деревни. Был убит заговорщиками из гарема.</div>
+<div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Заложил основы для самой могущественной династии Среднего царства. Оставил литературный памятник — «Поучение Аменемхета», ставший школьным каноном на столетия. Ввёл институт соправительства для мирной передачи власти.<div class="significance-badge medium">★ Значимость: 8/10</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="event major fade-in">
+<div class="event-content">
+<div class="event-date"></div>
+<div class="event-title">Сенусерт III</div>
+<div class="event-body">Фараон крайней жёсткости и авторитарности. <strong>Сенусерт III</strong> окончательно сломил власть независимых <strong>номархов</strong>, запретив им жить в своих провинциях — отныне они обязаны находиться при дворе. Создал государственный <strong>культ слежки</strong>: по всей стране ставили его статуи с подчёркнуто оттопыренными ушами — считалось, что фараон «видит сердца людей». Лично водил жесточайшие походы в <strong>Куш</strong>.</div>
+<div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Наивысший пик централизации Среднего царства. Создание мощнейшего репрессивного аппарата и сети осведомителей.<div class="significance-badge high">⚡ Значимость: 9/10</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="event major fade-in">
+<div class="event-content">
+<div class="event-date"></div>
+<div class="event-title">Масштабная торговля и крепости</div>
+<div class="event-body">При XII династии Египет стал невероятно богатым. Строились колоссальные военные форты (например, <strong>Бухен</strong> на первом пороге Нила) с гарнизонами до 500 человек. Египет наладил импорт <strong>бронзы с Крита</strong> и <strong>кедра из Библа</strong>. В Дельте Нила вырос гигантский мультикультурный мегаполис <strong>Аварис</strong> с населением под 100 тысяч человек.</div>
+<div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Интеграция Египта в международную экономику. Взаимодействие египетских иероглифов и семитских языков гастарбайтеров привело к созданию протосинайской письменности — прародителя всех современных алфавитов.<div class="significance-badge high">⚡ Значимость: 9/10</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="event fade-in">
+<div class="event-content">
+<div class="event-date"></div>
+<div class="event-title">Нефрусебек и падение династии</div>
+<div class="event-body">Когда у наследников не осталось мужчин, на престол взошла <strong>Нефрусебек</strong> («Красивый крокодил») — первая в истории Египта женщина, ставшая <strong>полноценным фараоном</strong> (в египетском языке даже не было женского аналога этого слова). На ней великая XII династия оборвалась.</div>
+<div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Создание прецедента женского правления. Окончание золотого века Среднего царства и переход к политической нестабильности XIII династии.<div class="significance-badge">Значимость: 5/10</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="event major fade-in">
+<div class="event-content">
+<div class="event-date">~1650 г. до н.э.</div>
+<div class="event-title">⚔ Вторжение гиксосов (Технологический шок)</div>
+<div class="event-body">Семитские переселенцы в <strong>Аварисе</strong> объявили независимость, а в страну вторглись <strong>гиксосы</strong> (от <em>хекау хасут</em> — правители чужих земель). Они привезли <strong>лошадей и боевые колесницы</strong>, стреляли из <strong>композитных луков</strong>, носили бронзовую броню и рубили египтян бронзовыми мечами-топорами (<strong>хопешами</strong>). Египтяне, воевавшие дубинами верхом на ослах, были разбиты.</div>
+<div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Конец Среднего царства. Гиксосы не разрушили египетскую культуру, а ассимилировались. Египтяне переняли у них колесницы, бронзовое оружие и перестроили армию — что позволило позже изгнать захватчиков и построить великую империю Нового царства.<div class="significance-badge high">⚡ Значимость: 10/10</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1433,14 +1728,13 @@
 <!-- ========== V. NEW KINGDOM ========== -->
 <section class="era-section era-new" id="new">
 <div class="era-header-illustrated fade-in">
-      <div class="era-bg-img" style="background-image: url('images/era-new.jpg');"></div>
+<div class="era-bg-img" style="background-image: url('images/era-new.jpg');"></div>
 <span class="era-number">V</span>
 <div class="era-period">~1550 — 1070 гг. до н.э. • XVIII–XX династии</div>
 <h2 class="era-title">Новое царство</h2>
 <p class="era-desc">Величайшая эпоха Египта: от изгнания гиксосов до катастрофы бронзового века</p>
 </div>
-
-    <div class="era-illustration fade-in">
+<div class="era-illustration fade-in">
 <img alt="Новое царство — процессия у храма Карнак" loading="lazy" src="images/era-new.jpg"/>
 <div class="img-overlay">
 <div class="img-caption">Императорский Египет</div>
@@ -1472,10 +1766,20 @@
 <div class="event-title">Яхмос I — основание XVIII династии</div>
 <div class="event-body"><strong>Яхмос I</strong> берет Мемфис и столицу гиксосов <strong>Аварис</strong>, преследует их в Азию (3-летняя осада Шарухена). Покоряет Нубию до 4-го порога. Подробности — из гробницы морского пехотинца <strong>Яхмоса, сына Эбаны</strong>.</div>
 </div>
-<div class="event">
+<div class="event major">
 <div class="event-date">Правление Тутмоса I</div>
 <div class="event-title">Рождение империи</div>
-<div class="event-body">Египет — мировая держава. Доходит до <strong>Евфрата</strong> («перевернутая вода»). Столкновение с <strong>Митанни</strong>. Визирь <strong>Инени</strong> создает <strong>Долину Царей</strong> под горой Аль-Курн. Возвышение культа <strong>Амона-Ра</strong>.</div>
+<div class="event-body">После смерти Хатшепсут <strong>Тутмос III</strong> начал агрессивную экспансию. В <strong>битве при Мегиддо</strong> он столкнулся с огромной коалицией ханаанских городов и хеттов. Благодаря тяжёлой пехоте с хопешами и колесницам, египтяне обратили врага в бегство за полчаса. За 20 лет он совершил <strong>16 походов</strong>, расширив границы до <strong>Евфрата</strong> на севере и до 4-го порога Нила на юге.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Превращение Египта в мировую империю и абсолютного гегемона Ближнего Востока. В страну хлынули потоки рабов, дани и новые технологии. Началась активная дипломатическая переписка на аккадском языке с Вавилоном, Ассирией и Микенами.<div class="significance-badge high">⚡ Значимость: 10/10</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1492,17 +1796,44 @@
 <div class="accordion-inner">
 <div class="timeline">
 <div class="event major has-thumb thumb-right">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">7-й год правления Тутмоса III</div>
 <div class="event-title">Хатшепсут берет регалии фараона</div>
-<div class="event-body">Впервые используется слово <strong>«Фараон»</strong> (от «Пер-а» — «Большой дом»). Зодчий <strong>Сененмут</strong> строит храм <strong>Джесер-Джесеру</strong> в Дейр-эль-Бахри (100 сфинксов). 30-метровые гранитные обелиски.</div>
+<div class="event-body">Изначально регент при малолетнем пасынке <strong>Тутмосе III</strong>, Хатшепсут сама взошла на престол, надев все мужские регалии (включая накладную бороду). При ней появился термин <strong>«фараон»</strong> (от «пер-аа» — великий дом). Опираясь на жречество <strong>Амона</strong>, она возвела колоссальные постройки: храм <strong>Джесер-Джесеру</strong> в Дейр-эль-Бахри и <strong>30-метровые</strong> гранитные обелиски.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Эпоха небывалого архитектурного и экономического расцвета. Окончательно оформился статус фараона как живого воплощения бога. Утверждение Праздника Опет как главного государственного торжества.<div class="significance-badge medium">★ Значимость: 8/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-hatshepsut.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-hatshepsut.jpg"/></div>
+</div>
 <div class="event">
 <div class="event-date">Экспедиция в Пунт</div>
 <div class="event-title">Путешествие в Сомали</div>
 <div class="event-body">Привозят мирровые деревья, экзотических животных. Дипломатический контакт с местной принцессой.</div>
+</div><div class="event fade-in">
+<div class="event-content">
+<div class="event-date"></div>
+<div class="event-title">Аменхотеп III</div>
+<div class="event-body">37-летнее правление <strong>Аменхотепа III</strong> — вершина богатства Нового царства, когда Египет ни с кем не воевал. Соседние цари в письмах умоляли прислать золото, <strong>«которого в Египте как песка»</strong>. Фараон собирал огромный гарем из иностранных принцесс. Развернулась «гонка великолепия» — строительство грандиозных храмов в <strong>Луксоре</strong> и <strong>Карнаке</strong>, а также знаменитых <strong>Колоссов Мемнона</strong>.</div>
+<div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Смещение акцента с войн на имперское доминирование через архитектуру и богатство. Начало слияния всех египетских богов с солярным культом, когда фараон начал называть себя «сияющим диском» — почва для грядущей религиозной революции.<div class="significance-badge medium">★ Значимость: 8/10</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1576,13 +1907,23 @@
 <div class="accordion-inner">
 <div class="timeline">
 <div class="event has-thumb thumb-left">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">~1332–1323 гг. до н.э.</div>
 <div class="event-title">Тутанхамон — мальчик-царь</div>
-<div class="event-body">Меняет имя с Тутанхатона на <strong>Тутанхамон</strong>, возвращает столицу в Мемфис, восстанавливает культ Амона-Ра. Правит 10 лет, умирает в 18 лет (малярия, травмы). В гробнице — нарды и мумия кошки.</div>
+<div class="event-body">Мальчик, взошедший на престол в 8 лет (изначально под именем Тутанхатон). Под влиянием советников свернул реформы Эхнатона: вернул старых богов, восстановил культ <strong>Амона</strong> и перенёс столицу в <strong>Мемфис</strong>. Умер в <strong>18 лет</strong> от множества тяжёлых болезней (малярия, травмы).</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+В историческом контексте он был незначительным правителем. Однако его маленькая гробница в Долине царей стала единственной, которую не разграбили в древности. Найденные золотые сокровища и знаменитая посмертная маска стали главным символом богатства Египта.<div class="significance-badge medium">★ Значимость: 7/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-tut.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-tut.jpg"/></div>
+</div>
 <div class="event">
 <div class="event-date">Конец XVIII династии</div>
 <div class="event-title">Генерал Хоремхеб</div>
@@ -1614,21 +1955,31 @@
 <div class="event-body">Храм в <strong>Абидосе</strong>, официальный список фараонов (вычеркнуты гиксосы, Хатшепсут, амарнские еретики). Начинает возвращать Азию.</div>
 </div>
 <div class="event major has-thumb thumb-right">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">Май 1274 г. до н.э.</div>
 <div class="event-title">Битва при Кадеше</div>
-<div class="event-body">20 000 египтян и 2 500 колесниц против хеттов царя <strong>Муваталли II</strong>. Лошади Рамзеса — «Фиванская победа» и «Богиня Мут довольна». Битва заканчивается <strong>вничью</strong>. Позже — первый в истории <strong>мирный договор</strong> с хеттом <strong>Хаттусили III</strong>.</div>
+<div class="event-body"><strong>20 000</strong> египтян и <strong>2 500 колесниц</strong> против хеттов царя Муваталли II с <strong>железным оружием</strong>. Лошади Рамзеса — «Фиванская победа» и «Богиня Мут довольна». Битва заканчивается <strong>вничью</strong>. Подписан первый в истории <strong>мирный договор</strong> с хеттом Хаттусили III.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Эпоха наивысшего монументального строительства и дипломатии. Рамзес II правил около 66 лет и застроил Египет колоссальными монументами, самым известным из которых является скальный храм Абу-Симбел.<div class="significance-badge high">⚡ Значимость: 9/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-kadesh.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-kadesh.jpg"/></div>
+</div>
 <div class="event has-thumb thumb-left">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">Великие стройки</div>
 <div class="event-title">Абу-Симбел, Рамессеум, Пер-Рамзес</div>
 <div class="event-body">Храмы <strong>Абу-Симбел</strong>, <strong>Рамессеум</strong> (архитектор гипостильного зала — <strong>Минхеперрасенеб</strong>) и новая интернациональная столица в Дельте — <strong>Пер-Рамзес</strong>.</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-abusimbel.jpg"/></div>
-      </div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-abusimbel.jpg"/></div>
+</div>
 </div>
 </div>
 </div>
@@ -1646,7 +1997,17 @@
 <div class="event">
 <div class="event-date">~1213–1201 гг. до н.э.</div>
 <div class="event-title">Мернептах и первая волна</div>
-<div class="event-body">Ливийцы под предводительством <strong>Деда и Мери</strong> с наемниками — народами моря (ахейцы, этруски, ликийцы, сардинцы, сицилийцы). На стеле — <strong>единственное упоминание Израиля</strong> в египетских источниках.</div>
+<div class="event-body">Ливийцы под предводительством <strong>Деда и Мери</strong> с наёмниками — народами моря (ахейцы, этруски, ликийцы, сардинцы, сицилийцы). На стеле Мернептаха — <strong>единственное упоминание Израиля</strong> в египетских источниках: «Израиль опустошён, нет семени его».</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Первые признаки грядущей глобальной катастрофы. Важнейший библейский археологический памятник.<div class="significance-badge medium">★ Значимость: 8/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event">
 <div class="event-date">~1200–1187 гг. до н.э.</div>
@@ -1654,22 +2015,52 @@
 <div class="event-body">Хаос: <strong>Сети II, Аменмес, Саптах, Таусерт</strong> сменяют друг друга. Генерал <strong>Сетнахт</strong> основывает <strong>XX династию</strong>.</div>
 </div>
 <div class="event major has-thumb thumb-right">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">1179 г. до н.э.</div>
 <div class="event-title">Рамзес III останавливает народы моря</div>
-<div class="event-body">Вторая волна: филистимляне, троянцы, данайцы. <strong>«Битва на воде»</strong> — египетский флот расстрелял транспортные баржи из луков.</div>
+<div class="event-body">К началу XII века до н.э. весь цивилизованный мир рушился под ударами <strong>Народов моря</strong>: пали хетты, Микены, сирийские города. <strong>Рамзес III</strong>, последний великий фараон Нового царства, объявил тотальную мобилизацию. В решающей <strong>«Битве на воде»</strong> египтяне расстреляли неповоротливые транспортные баржи из луков со своих маневренных кораблей.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Египет оказался единственной державой региона, которая физически пережила Катастрофу Бронзового века.<div class="significance-badge high">⚡ Значимость: 10/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-seapeoples.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-seapeoples.jpg"/></div>
+</div>
 <div class="event">
 <div class="event-date">1159 г. до н.э.</div>
 <div class="event-title">Первая в истории забастовка рабочих</div>
-<div class="event-body">Строители Долины Царей отказываются работать — <strong>два месяца без зарплаты</strong>. Рамзес III позже убит в гаремном заговоре (перерезано горло).</div>
+<div class="event-body">В 1159 году до н.э. строители гробниц в Долине Царей отказались работать — <strong>два месяца без пайков</strong> (зерно, одежду, масло). Составили петицию к визирю и фараону о коррупции жрецов. Рамзес III позже убит в <strong>гаремном заговоре</strong>: одна из жён подкупила охрану и жрецов — фараону перерезали горло (подтверждено исследованием мумии).</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Первый документально зафиксированный страйк (забастовка) в истории человечества. Убийство успешного правителя стало началом необратимого распада страны.<div class="significance-badge medium">★ Значимость: 8/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event major">
 <div class="event-date">1091 г. до н.э.</div>
 <div class="event-title">Конец Нового царства</div>
-<div class="event-body">Жрецы Амона отделяются. Генерал <strong>Херихор</strong> — фараон юга. <strong>Смендес</strong> — фараон севера. Мумии великих царей спешно вывозят в тайники <strong>Дейр-эль-Бахри</strong>.</div>
+<div class="event-body">После смерти Рамзеса III правители (Рамзесы IV–XI) быстро сменяли друг друга. Из-за обрушения международной торговли Египет лишился доступа к <strong>бронзе, серебру и кедру</strong>. Чудовищная коррупция и инфляция, массовое разграбление царских гробниц. На севере в Дельте правил военачальник <strong>Смендес</strong>, а на юге в Фивах власть узурпировал верховный жрец Амона <strong>Херихор</strong>.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Конец египетской империи и переход к эпохе раздробленности.<div class="significance-badge high">⚡ Значимость: 9/10</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1680,14 +2071,13 @@
 <!-- ========== VI. THIRD INTERMEDIATE ========== -->
 <section class="era-section era-third" id="third">
 <div class="era-header-illustrated fade-in">
-      <div class="era-bg-img" style="background-image: url('images/era-third.jpg');"></div>
+<div class="era-bg-img" style="background-image: url('images/era-third.jpg');"></div>
 <span class="era-number">VI</span>
 <div class="era-period">XI — VIII вв. до н.э. • XXI–XXIV династии</div>
 <h2 class="era-title">Третий переходный период</h2>
 <p class="era-desc">Распад государства, ливийские фараоны и утрата влияния</p>
 </div>
-
-    <div class="era-illustration fade-in">
+<div class="era-illustration fade-in">
 <img alt="Третий переходный период" loading="lazy" src="images/era-third.jpg"/>
 <div class="img-overlay">
 <div class="img-caption">Раздробленность</div>
@@ -1708,7 +2098,17 @@
 <div class="event major fade-in">
 <div class="event-date">~925 г. до н.э.</div>
 <div class="event-title">Шешонк I (Сусаким) — XXII ливийская династия</div>
-<div class="event-body">Вождь ливийцев <strong>мешвеш</strong> объединяет Египет. Первый за 150 лет зарубежный поход — вторгается в <strong>Иудею</strong>, забирает сокровища Иерусалимского храма. <strong>156 разграбленных поселений</strong> выбиты на портале в Бубастисе.</div>
+<div class="event-body">Поселившиеся в Дельте <strong>ливийцы</strong> египтизировались: почитали Амона и перенимали культуру. Предводитель ливийского племени <strong>мешвеш</strong> стал фараоном <strong>Шешонком I</strong> (основатель XXII династии). Он временно объединил страну и совершил успешный поход в <strong>Иудею</strong>, разграбив Иерусалим («взял сокровища дома Господня») — в Библии он известен как <strong>царь Сусаким</strong>. Столицу сделали в <strong>Танисе</strong>, построенном буквально из кусков старой Пер-Рамзес.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Демонстрация того, как египетская культура поглощала завоевателей, заставляя их служить своим богам.<div class="significance-badge medium">★ Значимость: 7/10</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -1716,14 +2116,13 @@
 <!-- ========== VII. LATE PERIOD ========== -->
 <section class="era-section era-late" id="late">
 <div class="era-header-illustrated fade-in">
-      <div class="era-bg-img" style="background-image: url('images/era-late.jpg');"></div>
+<div class="era-bg-img" style="background-image: url('images/era-late.jpg');"></div>
 <span class="era-number">VII</span>
 <div class="era-period">VIII — IV вв. до н.э. • XXV–XXXI династии</div>
 <h2 class="era-title">Позднее царство</h2>
 <p class="era-desc">Кушиты, ассирийцы, персы — Египет под иностранной властью</p>
 </div>
-
-    <div class="era-illustration fade-in">
+<div class="era-illustration fade-in">
 <img alt="Персидское завоевание Египта" loading="lazy" src="images/era-late.jpg"/>
 <div class="img-overlay">
 <div class="img-caption">Под чужой властью</div>
@@ -1747,7 +2146,17 @@
 <div class="event">
 <div class="event-date">Правление Шабаки и Тахарки</div>
 <div class="event-title">Нубийское возрождение</div>
-<div class="event-body"><strong>Шабака</strong> переносит мемфисскую теологию на <strong>Камень Шабаки</strong>. <strong>Тахарка</strong> строит киоск в Карнаке и сфинксов со своим лицом.</div>
+<div class="event-body">Из Нубии (<strong>Куша</strong>), которая сохранила египетскую администрацию и культуру лучше самой метрополии, началось вторжение. Нубийский царь <strong>Пианхи (Пие)</strong> захватил Египет, чтобы «восстановить Маат» — его злило плохое обращение египтян с лошадьми. <strong>Кушиты</strong> (Шабака, Тахарка) запустили <strong>ренессанс</strong>: массовое копирование древних текстов (например, «Памятник мемфисской теологии») и возобновление строительства пирамид.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Уникальный пример культурного возрождения страны силами её бывшей колонии.<div class="significance-badge medium">★ Значимость: 8/10</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1762,25 +2171,55 @@
 <div class="accordion-content">
 <div class="accordion-inner">
 <div class="timeline">
-<div class="event">
+<div class="event major">
 <div class="event-date">VII в. до н.э.</div>
 <div class="event-title">Ассирийское вторжение</div>
-<div class="event-body"><strong>Асархаддон</strong> и <strong>Ашшурбанипал</strong> громят кушитов, разоряют Фивы. Наместником ставят <strong>Нехо I</strong> из Саиса.</div>
+<div class="event-body">В VII веке до н.э. <strong>Неоассирийская империя</strong> катком прошлась по Ближнему Востоку. Ассирийские цари <strong>Асархаддон</strong> и <strong>Ашшурбанипал</strong> вторглись в Египет, разбили кушитов, дошли до Фив и захватили в цепях сына фараона Тахарки. Египет был жестоко разграблен, а управлять им ассирийцы посадили местного марионетку из города <strong>Саис</strong> — Нехо.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Первое в истории покорение Египта мировой железной империей.<div class="significance-badge high">⚡ Значимость: 9/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event major">
 <div class="event-date">664 г. до н.э.</div>
 <div class="event-title">Псамметих I — XXVI (Саисская) династия</div>
-<div class="event-body">Объединяет Египет с помощью <strong>греческих, карийских и финикийских наемников</strong>. Сбрасывает ассирийское владычество.</div>
+<div class="event-body">Сын Нехо, <strong>Псамметих I</strong>, с помощью <strong>греческих и карийских наёмников</strong> объединил Египет. Начался небывалый экономический бум. В Дельте вырос огромный греческий город <strong>Навкратис</strong>.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Последний независимый расцвет собственно египетской цивилизации.<div class="significance-badge medium">★ Значимость: 8/10</div>
+</div>
+</div>
+</div>
 </div>
 <div class="event">
 <div class="event-date">Правление Нехо II</div>
 <div class="event-title">Канал, флот и кругосветка</div>
-<div class="event-body">Первый военный флот, канал <strong>Нил–Красное море</strong>. По Геродоту — финикийская экспедиция <strong>вокруг Африки</strong>.</div>
+<div class="event-body">Фараон <strong>Нехо II</strong> создал первый египетский <strong>военный флот</strong>, начал строить <strong>Суэцкий канал</strong> (канал фараонов) и, по сообщениям историков, поручил финикийцам впервые <strong>обогнуть Африку</strong>. Страна стала космополитичной, в искусстве активно копировались древнейшие стили.</div>
 </div>
-<div class="event">
+<div class="event major">
 <div class="event-date">525 г. до н.э.</div>
 <div class="event-title">Персидское завоевание</div>
-<div class="event-body"><strong>Камбис II</strong> завоевывает Египет. XXVII династия — персидская.</div>
+<div class="event-body">В 525 г. до н.э. персидский царь <strong>Камбис</strong> завоевал Египет, превратив его в сатрапию <strong>империи Ахеменидов</strong>. Персидские цари формально объявлялись фараонами, но правили из далёких Суз. Египетские мастера и врачи массово вывозились в Персию. Позже египтянам удалось сбросить власть персов на 60 лет (<strong>Нектанеб II</strong> — последний коренной фараон), но персы вернулись.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Окончательная утрата Египтом статуса независимого игрока на мировой арене.<div class="significance-badge high">⚡ Значимость: 9/10</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1791,14 +2230,13 @@
 <!-- ========== VIII. PTOLEMAIC ========== -->
 <section class="era-section era-ptolemaic" id="ptolemaic">
 <div class="era-header-illustrated fade-in">
-      <div class="era-bg-img" style="background-image: url('images/era-ptolemaic.jpg');"></div>
+<div class="era-bg-img" style="background-image: url('images/era-ptolemaic.jpg');"></div>
 <span class="era-number">VIII</span>
 <div class="era-period">332 — 30 гг. до н.э.</div>
 <h2 class="era-title">Эллинистический Египет</h2>
 <p class="era-desc">Александр Македонский, Птолемеи и Клеопатра — финал великой цивилизации</p>
 </div>
-
-    <div class="era-illustration fade-in">
+<div class="era-illustration fade-in">
 <img alt="Клеопатра и Александрия" loading="lazy" src="images/era-ptolemaic.jpg"/>
 <div class="img-overlay">
 <div class="img-caption">Эллинистический Египет</div>
@@ -1807,26 +2245,36 @@
 </div>
 <div class="timeline">
 <div class="event major fade-in has-thumb thumb-left">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">332 г. до н.э.</div>
 <div class="event-title">Александр Македонский покоряет Египет</div>
-<div class="event-body">Без боя входит в Египет, встречен как <strong>освободитель от персов</strong>. Оракул в оазисе <strong>Сива</strong> объявляет его сыном бога Амона. Основывает <strong>Александрию</strong>.</div>
+<div class="event-body"><strong>Александр Великий</strong> выбил персов из Египта и принял титул фараона (включая традиционную рогатую корону).</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-alexander.jpg"/></div>
-      </div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-alexander.jpg"/></div>
+</div>
 <div class="event fade-in">
 <div class="event-date">323 г. до н.э.</div>
 <div class="event-title">Начало эпохи Птолемеев</div>
-<div class="event-body">После смерти Александра Египет достается генералу <strong>Птолемею I Сотеру</strong>. Для греков — цари, для египтян — фараоны. Двойная идентичность зафиксирована на <strong>Розеттском камне</strong>.</div>
+<div class="event-body">После Александра власть перешла к греческой династии <strong>Птолемеев</strong>. Блестящий период синтеза египетской и эллинской культур. Однако сами Птолемеи были чистыми греками — <strong>не говорили по-египетски</strong> и не ассоциировали себя с египтянами, хотя храмы продолжали функционировать по старым канонам.</div>
 </div>
 <div class="event major fade-in has-thumb thumb-right">
-        <div class="event-content">
+<div class="event-content">
 <div class="event-date">30 г. до н.э.</div>
 <div class="event-title">Клеопатра VII — конец Древнего Египта</div>
-<div class="event-body">Около 250 лет правления Птолемеев завершаются при <strong>Клеопатре VII</strong>. Египет окончательно поглощен <strong>Римской империей</strong>. Одна из величайших цивилизаций в истории человечества уходит в вечность.</div>
+<div class="event-body"><strong>Клеопатра VII</strong> была последней царицей династии Птолемеев. После её самоубийства в <strong>30 г. до н.э.</strong> Египет был аннексирован <strong>Октавианом Августом</strong> и стал провинцией <strong>Римской империи</strong>, что окончательно поставило точку в истории Древнего Египта.</div><div class="detail-accordion">
+<button class="detail-accordion-trigger" onclick="toggleDetail(this)">
+📜 Влияние и значимость
+<span class="detail-arrow">▼</span>
+</button>
+<div class="detail-accordion-content">
+<div class="detail-accordion-inner">
+Трансформация Египта в эллинистический и затем римский центр, сохранивший лишь тень былой религии.<div class="significance-badge medium">★ Значимость: 8/10</div>
 </div>
-        <div class="event-thumb"><img alt="" loading="lazy" src="images/mini-cleopatra.jpg"/></div>
-      </div>
+</div>
+</div>
+</div>
+<div class="event-thumb"><img alt="" loading="lazy" src="images/mini-cleopatra.jpg"/></div>
+</div>
 </div>
 <div class="era-illustration fade-in" style="margin-top: 2rem;">
 <img alt="Конец эпохи — Египет под властью Рима" loading="lazy" src="images/finale.jpg"/>
@@ -1886,6 +2334,13 @@
     }).catch(err => {
       console.log('SW registration failed:', err);
     });
+  }
+
+
+  // Detail accordion toggle (sub-accordions within events)
+  function toggleDetail(btn) {
+    const acc = btn.closest('.detail-accordion');
+    acc.classList.toggle('open');
   }
 </script>
 </body>
