@@ -2423,16 +2423,15 @@
     const revealText = () => {
       if (heroEnded) return;
       heroEnded = true;
+      // Remove wait class, force a reflow, then add video-ended for transitions
       heroContent.classList.remove('wait-for-video');
-      // Force browser to paint the intermediate state (opacity:0 from base styles
-      // removed), then apply video-ended with transitions in the next frame
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          heroContent.classList.add('video-ended');
-          showOverlay();
-        });
-      });
+      void heroContent.offsetHeight; // force reflow
+      heroContent.classList.add('video-ended');
+      showOverlay();
     };
+
+    // Safety: if nothing happens within 20s, show text anyway
+    const safetyTimer = setTimeout(revealText, 20000);
 
     // Auto-unmute on first user interaction (scroll/touch/click)
     const unmuteOnInteraction = () => {
@@ -2461,8 +2460,11 @@
       });
     };
 
-    heroVideo.addEventListener('ended', revealText);
-    heroVideo.addEventListener('error', revealText);
+    heroVideo.addEventListener('ended', () => { clearTimeout(safetyTimer); revealText(); });
+    heroVideo.addEventListener('error', () => { clearTimeout(safetyTimer); revealText(); });
+    // Also catch <source> errors
+    const source = heroVideo.querySelector('source');
+    if (source) source.addEventListener('error', () => { clearTimeout(safetyTimer); revealText(); });
 
     // Smooth audio fade-out before video ends
     setupAudioFadeOut(heroVideo, 2.5);
