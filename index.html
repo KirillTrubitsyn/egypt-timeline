@@ -2365,32 +2365,35 @@
 
   // Audio fade-out helper: smoothly reduces volume before video ends
   function setupAudioFadeOut(video, fadeDuration) {
-    fadeDuration = fadeDuration || 2.5; // seconds
-    let fadeInterval = null;
+    fadeDuration = fadeDuration || 3;
+    let fading = false;
 
-    video.addEventListener('timeupdate', function() {
+    function checkFade() {
+      if (video.paused || video.ended) { fading = false; return; }
+
       const timeLeft = video.duration - video.currentTime;
-      if (timeLeft <= fadeDuration && timeLeft > 0 && !fadeInterval) {
-        const startVolume = video.volume;
-        const steps = 30;
-        const stepTime = (fadeDuration * 1000) / steps;
-        let step = 0;
-        fadeInterval = setInterval(function() {
-          step++;
-          const progress = step / steps;
-          video.volume = Math.max(0, startVolume * (1 - progress));
-          if (step >= steps) {
-            clearInterval(fadeInterval);
-            video.volume = 0;
-          }
-        }, stepTime);
+
+      if (timeLeft <= fadeDuration && timeLeft > 0) {
+        if (!fading) fading = true;
+        // Smooth curve: use easeInQuad for natural fade
+        const progress = 1 - (timeLeft / fadeDuration);
+        video.volume = Math.max(0, 1 - progress * progress);
       }
+
+      requestAnimationFrame(checkFade);
+    }
+
+    video.addEventListener('playing', function() {
+      if (!fading) requestAnimationFrame(checkFade);
     });
 
-    // Reset volume when video ends (in case it replays)
-    video.addEventListener('ended', function() {
-      if (fadeInterval) { clearInterval(fadeInterval); fadeInterval = null; }
-      video.volume = 1;
+    // Reset volume if video replays
+    video.addEventListener('seeked', function() {
+      const timeLeft = video.duration - video.currentTime;
+      if (timeLeft > fadeDuration) {
+        video.volume = 1;
+        fading = false;
+      }
     });
   }
 
@@ -2426,7 +2429,7 @@
     });
 
     // Smooth audio fade-out before video ends
-    setupAudioFadeOut(heroVideo, 2.5);
+    setupAudioFadeOut(heroVideo, 3);
   })();
   
   // Finale video: play when scrolled into view, reveal text when ended
@@ -2462,7 +2465,7 @@
     }, { threshold: 0.5 });
     
     // Smooth audio fade-out before video ends
-    setupAudioFadeOut(finaleVideo, 2.5);
+    setupAudioFadeOut(finaleVideo, 3);
 
     finaleVideo.addEventListener('ended', () => {
       finaleOverlay.classList.add('video-ended');
