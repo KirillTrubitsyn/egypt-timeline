@@ -2310,6 +2310,8 @@
   // Force scroll to top on page load (disable browser scroll restoration)
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   window.scrollTo(0, 0);
+  // Mobile browsers restore scroll after render — force again on load
+  window.addEventListener('load', function() { window.scrollTo(0, 0); });
 
   // Accordion toggle
   function toggleAccordion(btn) {
