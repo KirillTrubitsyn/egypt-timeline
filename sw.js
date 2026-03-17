@@ -1,4 +1,4 @@
-const CACHE_NAME = 'egypt-timeline-v1';
+const CACHE_NAME = 'egypt-timeline-v3';
 
 const ASSETS = [
   './',
@@ -30,7 +30,7 @@ const ASSETS = [
   './images/mini-cleopatra.jpg'
 ];
 
-// Install: cache all assets
+// Install: cache all assets, activate immediately
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -50,23 +50,42 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch: cache-first strategy
+// Fetch: network-first for HTML pages, cache-first for assets
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      return cached || fetch(event.request).then((response) => {
-        // Cache new requests dynamically (e.g. Google Fonts)
-        if (response.ok && event.request.method === 'GET') {
+  const isNavigate = event.request.mode === 'navigate';
+  const isHTML = event.request.destination === 'document' ||
+    event.request.url.endsWith('.html') ||
+    event.request.url.endsWith('/');
+
+  if (isNavigate || isHTML) {
+    // Network-first for HTML — always get latest version
+    event.respondWith(
+      fetch(event.request).then((response) => {
+        if (response.ok) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         }
         return response;
-      });
-    }).catch(() => {
-      // Offline fallback
-      if (event.request.mode === 'navigate') {
-        return caches.match('./index.html');
-      }
-    })
-  );
+      }).catch(() => {
+        return caches.match(event.request) || caches.match('./index.html');
+      })
+    );
+  } else {
+    // Cache-first for images, fonts, etc.
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        return cached || fetch(event.request).then((response) => {
+          if (response.ok && event.request.method === 'GET') {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        });
+      }).catch(() => {
+        if (isNavigate) {
+          return caches.match('./index.html');
+        }
+      })
+    );
+  }
 });
